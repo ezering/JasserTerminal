@@ -1,75 +1,130 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Map<String, String> _formData = {
+    'email': '',
+    'password': '',
+  };
+
+  var _isLoading = false;
+  final _passwordController = TextEditingController();
+
+  void _submitForm() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    // Login User
+    setState(() {
+      _isLoading = false;
+    });
+
+    print(_formData);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-      child: Column(
-        children: <Widget>[
-          TextField(
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              labelText: "Email",
-              labelStyle: TextStyle(
-                color: Colors.grey,
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value!.isEmpty ||
+                      !value.contains('@') ||
+                      !value.contains('.')) {
+                    return 'Format de l\'email invalide!';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _formData['email'] = value!;
+                },
               ),
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.purple,
-                  width: 2,
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Mot de passe'),
+
+                obscureText: true,
+                controller: _passwordController,
+                // cursorColor: Colors.grey,
+                validator: (value) {
+                  if (value!.isEmpty || value.length < 5) {
+                    return 'Mot de passe doit avoir au moins 6 caractères.';
+                  }
+                },
+                onSaved: (value) {
+                  _formData['password'] = value!;
+                },
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(ForgotPassScreen.routeName);
+                  },
+                  child: Text('Mot de passe oublié?',
+                      softWrap: true,
+                      style: TextStyle(color: Colors.purple[500])),
                 ),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.purple,
-                  width: 2,
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ElevatedButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(36),
+                    ),
+                  ),
+                  onPressed: _submitForm,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Connexion',
+                          style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontSize: 18),
+                        ),
+                        const SizedBox(width: 10),
+                        const Icon(
+                          Icons.login_outlined,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 0.5,
-                ),
-              ),
-            ),
+              )
+            ],
           ),
-          SizedBox(height: 16),
-          TextField(
-            obscureText: true,
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              labelText: "Mot de passe",
-              labelStyle: TextStyle(
-                color: Colors.grey,
-              ),
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.purple,
-                  width: 2,
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.purple,
-                  width: 2,
-                ),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 0.5,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

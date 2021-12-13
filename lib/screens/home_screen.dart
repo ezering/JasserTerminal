@@ -7,6 +7,8 @@ import '/screens/info_screen.dart';
 import '/screens/scan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/home';
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,36 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static final List<Map<String, Widget>> _screens = [
-    {
-      'screen': DashboardScreen(),
-    },
-    {
-      'screen': CategoryScreen(),
-    },
-    {
-      'screen': ScanScreen(),
-    },
-    {
-      'screen': InfoScreen(),
-    },
-  ];
-  // final List<Widget> screens = [
-  //   DashboardScreen(),
-  //   CategoryScreen(),
-  //   ScanScreen(),
-  //   InfoScreen(),
-  // ];
-  static int currentTab = 0;
+  int currentTab = 0;
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = _screens[currentTab]['screen']!;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(
-        child: currentScreen,
+        child: _buildPage(),
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
@@ -61,119 +42,62 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MaterialButton(
-                      minWidth: 40.0,
-                      onPressed: () {
-                        setState(() {
-                          currentTab = 0;
-                          currentScreen = _screens[currentTab]['screen']!;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.space_dashboard_rounded,
-                            color: currentTab == 0 ? Colors.blue : Colors.grey,
-                          ),
-                          Text(
-                            'Accueil',
-                            style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      minWidth: 40.0,
-                      onPressed: () {
-                        setState(() {
-                          currentTab = 1;
-                          currentScreen = _screens[currentTab]['screen']!;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.category_rounded,
-                            color: currentTab == 1 ? Colors.blue : Colors.grey,
-                          ),
-                          Text(
-                            'Categories',
-                            style: TextStyle(
-                              color:
-                                  currentTab == 1 ? Colors.blue : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  _buildBottomBarButton(
+                      0, 'Accueil', Icons.space_dashboard_rounded),
+                  _buildBottomBarButton(1, 'Categories', Icons.category_rounded)
+                ]),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    MaterialButton(
-                      minWidth: 40.0,
-                      onPressed: () {
-                        setState(() {
-                          currentTab = 2;
-                          currentScreen = _screens[currentTab]['screen']!;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.center_focus_weak_rounded,
-                            color: currentTab == 2 ? Colors.blue : Colors.grey,
-                          ),
-                          Text(
-                            'Scan',
-                            style: TextStyle(
-                              color:
-                                  currentTab == 2 ? Colors.blue : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      minWidth: 40.0,
-                      onPressed: () {
-                        setState(() {
-                          currentTab = 3;
-                          currentScreen = _screens[currentTab]['screen']!;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.info_outline_rounded,
-                            color: currentTab == 3 ? Colors.blue : Colors.grey,
-                          ),
-                          Text(
-                            'Infos',
-                            style: TextStyle(
-                              color:
-                                  currentTab == 3 ? Colors.blue : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildBottomBarButton(
+                        2, 'Scan', Icons.center_focus_weak_rounded),
+                    _buildBottomBarButton(
+                        3, 'Infos', Icons.info_outline_rounded),
                   ],
                 ),
               ],
             ),
           )),
+    );
+  }
+
+  Widget _buildPage() {
+    switch (currentTab) {
+      case 0:
+        return DashboardScreen();
+      case 1:
+        return CategoryScreen();
+      case 2:
+        return ScanScreen();
+      default:
+        return InfoScreen();
+    }
+  }
+
+  _buildBottomBarButton(int index, String title, IconData icon) {
+    return MaterialButton(
+      minWidth: 40.0,
+      onPressed: () {
+        setState(() {
+          currentTab = index;
+        });
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            icon,
+            color: currentTab == index ? Colors.blue : Colors.grey,
+          ),
+          Text(
+            title,
+            style: TextStyle(
+              color: currentTab == index ? Colors.blue : Colors.grey,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WelcomeTextLogin extends StatelessWidget {
-  const WelcomeTextLogin({
+class WelcomeTextRegister extends StatelessWidget {
+  const WelcomeTextRegister({
     Key? key,
   }) : super(key: key);
 
@@ -10,7 +10,7 @@ class WelcomeTextLogin extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: const Text(
-        'Content de te revoir!',
+        'Veuillez vous inscrire!',
         style: TextStyle(
           color: Colors.purple,
           fontSize: 32,

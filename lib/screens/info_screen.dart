@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatelessWidget {
+  static const routeName = '/info';
+
   const InfoScreen({Key? key}) : super(key: key);
 
   @override

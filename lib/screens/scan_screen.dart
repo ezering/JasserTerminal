@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 class ScanScreen extends StatelessWidget {
+  static const routeName = '/scan';
+
   const ScanScreen({Key? key}) : super(key: key);
 
   @override

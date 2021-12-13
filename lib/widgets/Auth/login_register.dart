@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import '../../screens/auth/register_screen.dart';
 import '../../screens/auth/login_screen.dart';
 
 class LoginAndRegisterButtons extends StatelessWidget {
@@ -11,31 +10,33 @@ class LoginAndRegisterButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Row(
         children: <Widget>[
           Expanded(
-            child: TextButton(
+            child: ElevatedButton(
               style: TextButton.styleFrom(
-                backgroundColor: Colors.purple[900],
+                backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(36),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(RegisterScreen.routeName);
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
+                  children: const <Widget>[
+                    Icon(
                       Icons.person_add_alt_1_sharp,
                       color: Colors.white,
                     ),
-                    const SizedBox(width: 10),
-                    const Text(
+                    SizedBox(width: 10),
+                    Text(
                       'S\'inscrire',
                       style: TextStyle(
                         fontSize: 16,
@@ -47,22 +48,21 @@ class LoginAndRegisterButtons extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 30),
+          const SizedBox(width: 10),
           Expanded(
-            child: TextButton(
+            child: ElevatedButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(36),
-                  side: BorderSide(
-                    color: Colors.purple[900]!.withOpacity(0.5),
+                  side: const BorderSide(
+                    color: Colors.purple,
                   ),
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                Navigator.of(context).pushNamed(
+                  LoginScreen.routeName,
+                );
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -70,16 +70,17 @@ class LoginAndRegisterButtons extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
-                      Icons.lock_rounded,
-                      color: Colors.purple,
+                  children: const <Widget>[
+                    Icon(
+                      Icons.lock_open,
+                      color: Colors.white,
                     ),
-                    const Text(
+                    SizedBox(width: 10),
+                    Text(
                       'Se Connecter',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.purple,
+                        color: Colors.white,
                       ),
                     ),
                   ],

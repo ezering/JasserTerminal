@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/widgets/Auth/register_form.dart';
-import 'package:jasser_terminal/widgets/Auth/welcome_text_register.dart';
+import 'package:jasser_terminal/widgets/Auth/forgot_pass_form.dart';
+import 'package:jasser_terminal/widgets/Auth/welcome_text_forgotpass.dart';
 
 import 'home_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
-  static const routeName = '/register';
-  const RegisterScreen({Key? key}) : super(key: key);
+class ForgotPassScreen extends StatelessWidget {
+  static const routeName = '/forgot-pass';
+  const ForgotPassScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: registerAppBar(context),
+      appBar: forgotPassAppBar(context),
       body: SingleChildScrollView(
         child: Column(
           children: const <Widget>[
-            WelcomeTextRegister(),
-            RegisterForm(),
+            WelcomeTextForgotPass(),
+            ForgotPassForm(),
           ],
         ),
       ),
     );
   }
 
-  AppBar registerAppBar(BuildContext context) {
+  AppBar forgotPassAppBar(BuildContext context) {
     return AppBar(
-      title: const Text('Inscription', style: TextStyle(color: Colors.purple)),
+      title: const Text('Restauration Mot de Passe',
+          style: TextStyle(color: Colors.purple)),
       leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.purple),
           onPressed: () {
