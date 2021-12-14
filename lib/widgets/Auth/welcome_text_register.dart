@@ -13,7 +13,7 @@ class WelcomeTextRegister extends StatelessWidget {
         'Veuillez vous inscrire!',
         style: TextStyle(
           color: Colors.purple,
-          fontSize: 32,
+          fontSize: 28,
           fontWeight: FontWeight.bold,
         ),
       ),

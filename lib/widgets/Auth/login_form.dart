@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/display.dart';
+import 'package:jasser_terminal/providers/auth.dart';
 import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
+import 'package:jasser_terminal/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -12,7 +16,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Map<String, String> _formData = {
+  final Map<String, String> _formData = {
     'email': '',
     'password': '',
   };
@@ -20,7 +24,7 @@ class _LoginFormState extends State<LoginForm> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -28,12 +32,30 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _isLoading = true;
     });
-    // Login User
-    setState(() {
-      _isLoading = false;
-    });
+    try {
+      await Provider.of<Auth>(context, listen: false).signIn(
+        _formData['email'] as String,
+        _formData['password'] as String,
+      );
+      // y'a mieux que ça : Question: pourquoi le Consumer dans Main ne fait rien.
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const HomeScreen(),
+        ),
+      );
+    } catch (error) {
+      Display.dialogError(context, error);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
 
-    print(_formData);
+    // setState(() {
+    //   _isLoading = false;
+    // });
+
+    // print(_formData);
   }
 
   @override

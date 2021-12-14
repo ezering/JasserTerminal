@@ -13,7 +13,7 @@ class WelcomeTextLogin extends StatelessWidget {
         'Content de te revoir!',
         style: TextStyle(
           color: Colors.purple,
-          fontSize: 32,
+          fontSize: 28,
           fontWeight: FontWeight.bold,
         ),
       ),

@@ -10,7 +10,7 @@ class LoginAndRegisterButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -52,17 +52,13 @@ class LoginAndRegisterButtons extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               style: TextButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(36),
-                  side: const BorderSide(
-                    color: Colors.purple,
-                  ),
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(
-                  LoginScreen.routeName,
-                );
+                Navigator.of(context).pushNamed(LoginScreen.routeName);
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -72,12 +68,12 @@ class LoginAndRegisterButtons extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
                     Icon(
-                      Icons.lock_open,
+                      Icons.login_rounded,
                       color: Colors.white,
                     ),
                     SizedBox(width: 10),
                     Text(
-                      'Se Connecter',
+                      'Se connecter',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,

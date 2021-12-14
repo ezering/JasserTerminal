@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/display.dart';
+import 'package:jasser_terminal/providers/auth.dart';
+import 'package:jasser_terminal/screens/auth/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -19,7 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -27,12 +31,24 @@ class _RegisterFormState extends State<RegisterForm> {
     setState(() {
       _isLoading = true;
     });
-    // Login User
-    setState(() {
-      _isLoading = false;
-    });
 
-    print(_formData);
+    try {
+      // Enregister l'utilisateur
+      await Provider.of<Auth>(context, listen: false).signUp(
+        _formData['firstName'] as String,
+        _formData['lastName'] as String,
+        _formData['email'] as String,
+        _formData['password'] as String,
+      );
+      Display.dialogSuccess(
+          context, 'Votre compte a été créé avec succès', const LoginScreen());
+    } catch (error) {
+      Display.dialogError(context, error);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -90,6 +106,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Veuillez saisir votre mot de passe';
+                  } else if (value.length < 6) {
+                    return 'Votre mot de passe doit contenir au moins 6 caractères';
                   }
                   return null;
                 },
