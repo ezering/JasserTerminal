@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/screens/shelf/shelf_screen.dart';
+import 'package:jasser_terminal/screens/shop/add_shop_screen.dart';
+import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 
@@ -49,6 +51,7 @@ class ShopScreen extends StatelessWidget {
               return res;
             } else {
               // Allez Sur la page Editer;
+              Navigator.of(context).pushNamed(EditShopScreen.routeName);
             }
           },
           child: InkWell(
@@ -126,6 +129,7 @@ class ShopScreen extends StatelessWidget {
               return res;
             } else {
               // Allez Sur la page Editer;
+              Navigator.of(context).pushNamed(EditShopScreen.routeName);
             }
           },
           child: InkWell(
@@ -168,7 +172,9 @@ class ShopScreen extends StatelessWidget {
 
         // Pour ajouter une boutique supplementaire
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(AddShopScreen.routeName);
+          },
           splashColor: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
           child: Container(

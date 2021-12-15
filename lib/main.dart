@@ -3,8 +3,12 @@ import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
 import 'package:jasser_terminal/screens/category/category_products_screen.dart';
 import 'package:jasser_terminal/screens/category/category_screen.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
+import 'package:jasser_terminal/screens/shelf/add_shelf_screen.dart';
+import 'package:jasser_terminal/screens/shelf/edit_shelf_screen.dart';
 import 'package:jasser_terminal/screens/shelf/shelf_products_screen.dart';
 import 'package:jasser_terminal/screens/shelf/shelf_screen.dart';
+import 'package:jasser_terminal/screens/shop/add_shop_screen.dart';
+import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
 import 'package:jasser_terminal/widgets/products/category_product.dart';
 import 'package:jasser_terminal/widgets/shelf/shelf_list.dart';
@@ -95,6 +99,10 @@ class MyApp extends StatelessWidget {
             CategoryProducts.routeName: (context) => const CategoryProducts(),
             CategoryProductList.routeName: (context) =>
                 const CategoryProductList(),
+            AddShopScreen.routeName: (context) => const AddShopScreen(),
+            EditShopScreen.routeName: (context) => const EditShopScreen(),
+            AddShelfScreen.routeName: (context) => const AddShelfScreen(),
+            EditShelfScreen.routeName: (context) => const EditShelfScreen(),
           },
           debugShowCheckedModeBanner: false,
         ),

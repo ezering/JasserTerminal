@@ -38,11 +38,8 @@ class _LoginFormState extends State<LoginForm> {
         _formData['password'] as String,
       );
       // y'a mieux que ça : Question: pourquoi le Consumer dans Main ne fait rien.
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (ctx) => const HomeScreen(),
-        ),
-      );
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
     } catch (error) {
       Display.dialogError(context, error);
     } finally {
