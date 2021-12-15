@@ -1,5 +1,5 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/screens/category/category_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   static const routeName = '/category-screen';
@@ -10,12 +10,9 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories'),
+        title: const Text('Catégories'),
       ),
-      body: Center(
-        child: Text('Categories Screen', style: TextStyle(fontSize: 24)),
-      ),
+      body: const CategoryScreenList(),
     );
   }
 }
- 

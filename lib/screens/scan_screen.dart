@@ -14,7 +14,7 @@ class ScanScreen extends StatelessWidget {
         title: const Text('Scanner'),
       ),
       body: Center(
-        child: Text('Scan Screen', style: TextStyle(fontSize: 24)),
+        child: Text('Servira de scanner', style: TextStyle(fontSize: 24)),
       ),
     );
   }

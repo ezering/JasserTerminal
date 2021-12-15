@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '/screens/categories_screen.dart';
 import '/screens/dashboard_screen.dart';
-import '/screens/info_screen.dart';
+import 'infos_screen.dart';
 import '/screens/scan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -45,13 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   _buildBottomBarButton(
                       0, 'Accueil', Icons.space_dashboard_rounded),
-                  _buildBottomBarButton(1, 'Categories', Icons.category_rounded)
+                  _buildBottomBarButton(1, 'Catégories', Icons.category_rounded)
                 ]),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    _buildBottomBarButton(
-                        2, 'Scan', Icons.center_focus_weak_rounded),
+                    _buildBottomBarButton(2, 'Scan', Icons.qr_code_2_outlined),
                     _buildBottomBarButton(
                         3, 'Infos', Icons.info_outline_rounded),
                   ],
@@ -88,12 +87,16 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Icon(
             icon,
-            color: currentTab == index ? Colors.blue : Colors.grey,
+            color: currentTab == index
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
           ),
           Text(
             title,
             style: TextStyle(
-              color: currentTab == index ? Colors.blue : Colors.grey,
+              color: currentTab == index
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.secondary,
             ),
           ),
         ],
