@@ -33,8 +33,7 @@ class Display {
     );
   }
 
-  static Future<dynamic> dialogSuccess(
-      BuildContext context, message, Widget page) {
+  static Future<dynamic> dialogSuccess(BuildContext context, message) {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -59,11 +58,6 @@ class Display {
             child: const Text('OK'),
             onPressed: () {
               Navigator.of(ctx).pop();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (ctx) => page,
-                ),
-              );
             },
           ),
         ],

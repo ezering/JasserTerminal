@@ -14,12 +14,10 @@ import 'package:jasser_terminal/widgets/products/category_product.dart';
 import 'package:jasser_terminal/widgets/shelf/shelf_list.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth.dart';
-import 'screens/auth/login_screen.dart';
-import 'screens/auth/register_screen.dart';
+import 'screens/auth/authentication_screen.dart';
 import 'screens/categories_screen.dart';
 import 'screens/infos_screen.dart';
 import 'screens/scan_screen.dart';
-import 'screens/auth/home_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() {
@@ -78,15 +76,27 @@ class MyApp extends StatelessWidget {
                 ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: auth.isAuth ? const HomeScreen() : const AuthHomeScreen(),
+          home: auth.isAuth
+              ? const HomeScreen()
+              :
+              // const LoginScreen(),
+              const AuthenticationScreen(),
+          // FutureBuilder(
+          //     future: auth.autoAuthenticate(),
+          //     builder: (context, authResultSnapshot) =>
+          //         authResultSnapshot.connectionState ==
+          //                 ConnectionState.waiting
+          //             ? const SplashScreen()
+          //             : const HomeScreen(),
+          //   ),
+          // home: const AuthenticationScreen(),
           routes: {
-            AuthHomeScreen.routeName: (context) => const AuthHomeScreen(),
+            AuthenticationScreen.routeName: (context) =>
+                const AuthenticationScreen(),
             HomeScreen.routeName: (context) => const HomeScreen(),
             CategoryScreen.routeName: (context) => const CategoryScreen(),
             ScanScreen.routeName: (context) => const ScanScreen(),
             InfoScreen.routeName: (context) => const InfoScreen(),
-            LoginScreen.routeName: (context) => const LoginScreen(),
-            RegisterScreen.routeName: (context) => const RegisterScreen(),
             ForgotPassScreen.routeName: (context) => const ForgotPassScreen(),
             ShopScreen.routeName: (context) => const ShopScreen(),
             ShelfScreen.routeName: (context) => const ShelfScreen(),

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jasser_terminal/widgets/Auth/forgot_pass_form.dart';
 import 'package:jasser_terminal/widgets/Auth/welcome_text_forgotpass.dart';
 
-import 'home_screen.dart';
-
 class ForgotPassScreen extends StatelessWidget {
   static const routeName = '/forgot-pass';
   const ForgotPassScreen({Key? key}) : super(key: key);
@@ -30,8 +28,7 @@ class ForgotPassScreen extends StatelessWidget {
       leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.purple),
           onPressed: () {
-            Navigator.of(context)
-                .pushReplacementNamed(AuthHomeScreen.routeName);
+            Navigator.of(context).pop();
           }),
       backgroundColor: Colors.white,
       elevation: 0,

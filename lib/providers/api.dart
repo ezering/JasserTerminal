@@ -1,4 +1,4 @@
 class Api {
-  static const String BASE_URL =
-      "https://jasser-terminal-server.herokuapp.com/auth";
+  static const String baseUrl =
+      "https://jasser-terminal-server.herokuapp.com/";
 }
