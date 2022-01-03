@@ -10,6 +10,7 @@ import 'package:jasser_terminal/screens/shelf/shelf_screen.dart';
 import 'package:jasser_terminal/screens/shop/add_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
+import 'package:jasser_terminal/screens/splash_screen.dart';
 import 'package:jasser_terminal/widgets/products/category_product.dart';
 import 'package:jasser_terminal/widgets/shelf/shelf_list.dart';
 import 'package:provider/provider.dart';
@@ -78,18 +79,14 @@ class MyApp extends StatelessWidget {
           ),
           home: auth.isAuth
               ? const HomeScreen()
-              :
-              // const LoginScreen(),
-              const AuthenticationScreen(),
-          // FutureBuilder(
-          //     future: auth.autoAuthenticate(),
-          //     builder: (context, authResultSnapshot) =>
-          //         authResultSnapshot.connectionState ==
-          //                 ConnectionState.waiting
-          //             ? const SplashScreen()
-          //             : const HomeScreen(),
-          //   ),
-          // home: const AuthenticationScreen(),
+              : FutureBuilder(
+                  future: auth.autoAuthenticate(),
+                  builder: (context, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? const SplashScreen()
+                          : const AuthenticationScreen(),
+                ),
           routes: {
             AuthenticationScreen.routeName: (context) =>
                 const AuthenticationScreen(),

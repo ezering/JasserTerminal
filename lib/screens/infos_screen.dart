@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class InfoScreen extends StatelessWidget {
   static const routeName = '/info';
@@ -52,9 +53,41 @@ class InfoScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      ElevatedButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shadowColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36),
+                          ),
+                        ),
+                        onPressed: () {
+                          Provider.of<Auth>(context, listen: false).logout();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              "Se déconnecter",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.exit_to_app,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
                       Card(
-                        margin:
-                            const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         clipBehavior: Clip.antiAlias,
                         color: Colors.white,
                         elevation: 5,
@@ -125,8 +158,8 @@ class InfoScreen extends StatelessWidget {
                         ),
                       ),
                       Card(
-                        margin:
-                            const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         clipBehavior: Clip.antiAlias,
                         color: Colors.white,
                         elevation: 5,
@@ -197,8 +230,8 @@ class InfoScreen extends StatelessWidget {
                         ),
                       ),
                       Card(
-                        margin:
-                            const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         clipBehavior: Clip.antiAlias,
                         color: Colors.white,
                         elevation: 5,

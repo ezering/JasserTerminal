@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth with ChangeNotifier {
   String _token = '';
   String _email = '';
+  bool isAuthenticated = false;
 
   String get token {
     if (_token.isNotEmpty) {
@@ -20,8 +22,10 @@ class Auth with ChangeNotifier {
 
   bool get isAuth {
     if (token.isNotEmpty && !JwtDecoder.isExpired(token)) {
+      isAuthenticated = true;
       return true;
     }
+    isAuthenticated = false;
     return false;
   }
 
@@ -69,18 +73,14 @@ class Auth with ChangeNotifier {
       if (responseData['error'] != null) {
         throw HttpException(responseData['message']);
       }
-      // else {
-      //   _token = responseData['accessToken'] as String;
-      //   notifyListeners();
-      // }
       _token = responseData['accessToken'];
       notifyListeners();
 
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode(
-        {
-          'token': _token,
-          'email': email,
+        <String, String>{
+          'token': responseData['accessToken'],
+          'email': responseData['email'],
         },
       );
       prefs.setString('userData', userData);
@@ -89,24 +89,61 @@ class Auth with ChangeNotifier {
     }
   }
 
-  // auto authentification
-  Future<bool> autoAuthenticate() async {
+  // get extracted user data
+  Future<Map<String, dynamic>> getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {
-      return false;
+      return <String, dynamic>{
+        'token': '',
+        'email': '',
+      };
     }
-    final extractedUserData =
-        json.decode(prefs.getString('userData') ?? '') as Map<String, Object>;
+
+    final extractedUserData = json
+        .decode(prefs.getString('userData') as dynamic) as Map<String, dynamic>;
+    final token = extractedUserData['token'];
+    final email = extractedUserData['email'];
+    return <String, dynamic>{
+      'token': token,
+      'email': email,
+    };
+  }
+
+  // auto authentification
+  Future<bool> autoAuthenticate() async {
+    print('auto authentification');
+    final extractedUserData = await getUserData();
     final token = extractedUserData['token'] as String;
     final email = extractedUserData['email'] as String;
+    print(token);
+    print(email);
 
-    if (token.isNotEmpty && JwtDecoder.isExpired(token)) {
-      return false;
+    if (token.isNotEmpty && !JwtDecoder.isExpired(token)) {
+      _token = token;
+      _email = email;
+      notifyListeners();
+      return true;
     }
-    _token = token;
-    _email = email;
+    return false;
+  }
 
+  // logout
+  Future<void> logout() async {
+    _token = '';
+    _email = '';
+    isAuthenticated = false;
     notifyListeners();
-    return true;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userData');
+    await prefs.clear();
+  }
+
+  // auto logout
+  Future<void> autoLogout() async {
+    if (_token.isNotEmpty) {
+      if (JwtDecoder.isExpired(_token)) {
+        await logout();
+      }
+    }
   }
 }

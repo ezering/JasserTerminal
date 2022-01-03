@@ -15,7 +15,6 @@ class AuthenticationScreen extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -82,15 +81,11 @@ class _AuthCardState extends State<AuthCard> {
       _isLoading = true;
     });
     if (_authMode == AuthMode.login) {
-      // Log user in
       try {
         await Provider.of<Auth>(context, listen: false).signIn(
           _formData['email'] as String,
           _formData['password'] as String,
         );
-        // y'a mieux que ça : Question que je me pose: pourquoi le Consumer dans Main ne fait rien.
-        // Navigator.of(context)
-        //     .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
       } catch (error) {
         Display.dialogError(context, error);
       } finally {
@@ -99,7 +94,6 @@ class _AuthCardState extends State<AuthCard> {
         });
       }
     } else {
-      // Sign user up
       try {
         // Enregister l'utilisateur
         await Provider.of<Auth>(context, listen: false).signUp(
@@ -110,6 +104,7 @@ class _AuthCardState extends State<AuthCard> {
         );
         Display.dialogSuccess(context, 'Votre compte a été créé avec succès');
         _authMode = AuthMode.login;
+        _formKey.currentState?.reset();
       } catch (error) {
         Display.dialogError(context, error);
       } finally {
@@ -118,9 +113,6 @@ class _AuthCardState extends State<AuthCard> {
         });
       }
     }
-    // setState(() {
-    //   _isLoading = false;
-    // });
   }
 
   void _switchAuthMode() {

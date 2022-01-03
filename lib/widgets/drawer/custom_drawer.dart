@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/providers/auth.dart';
 import 'package:jasser_terminal/screens/categories_screen.dart';
 import 'package:jasser_terminal/screens/home_screen.dart';
 import 'package:jasser_terminal/screens/infos_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -64,6 +66,16 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Informations'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(InfoScreen.routeName);
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app_rounded),
+            title: const Text('Deconnexion'),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+              Provider.of<Auth>(context, listen: false).logout();
             },
           ),
         ],
