@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
 import 'package:jasser_terminal/screens/category/category_products_screen.dart';
 import 'package:jasser_terminal/screens/category/category_screen.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Auth()),
+        ChangeNotifierProvider(create: (context) => Shops()),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, child) => MaterialApp(

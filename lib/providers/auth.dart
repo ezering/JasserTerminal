@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:jasser_terminal/models/http_exception.dart';
-import 'package:jasser_terminal/providers/api.dart';
+import 'package:jasser_terminal/providers/api_class.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +34,7 @@ class Auth with ChangeNotifier {
       String firstName, String lastName, String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('${Api.baseUrl}auth/signup'),
+        Uri.parse('${ApiClass.baseUrl}/auth/signup'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -59,7 +59,7 @@ class Auth with ChangeNotifier {
   Future<void> signIn(String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('${Api.baseUrl}auth/login'),
+        Uri.parse('${ApiClass.baseUrl}/auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
