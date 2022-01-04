@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
+import 'package:jasser_terminal/widgets/shop/add_shop_buton.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -17,11 +18,18 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Acceuil'),
+      appBar: AppBar(
+        title: Text('Acceuil'),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshShops(context),
+        child: Column(
+          children: const [
+            ShopScreen(),
+            AddShopButton(),
+          ],
         ),
-        body: RefreshIndicator(
-            onRefresh: () => _refreshShops(context),
-            child: const ShopScreen()));
+      ),
+    );
   }
 }

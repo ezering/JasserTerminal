@@ -1,12 +1,9 @@
-import 'package:jasser_terminal/models/shelf.dart';
-
 class Product {
   final String id;
   final String name;
   final String description;
   final String quantity;
-  final double price;
-  final Shelf shelf;
+  final int price;
 
   Product({
     required this.id,
@@ -14,6 +11,5 @@ class Product {
     required this.description,
     required this.quantity,
     required this.price,
-    required this.shelf,
   });
 }

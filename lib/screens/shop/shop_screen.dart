@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/display.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/widgets/shop/shop_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +12,10 @@ class ShopScreen extends StatefulWidget {
   State<ShopScreen> createState() => _ShopScreenState();
 }
 
+
 class _ShopScreenState extends State<ShopScreen> {
   var _isInit = true; // pour ne pas charger les données deux fois
   var _isLoading = false;
-  // late Future<List<Shop>> futureShop = [] as Future<List<Shop>>;
   @override
   void initState() {
     super.initState();
@@ -26,11 +27,15 @@ class _ShopScreenState extends State<ShopScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Shops>(context).fetchAndSetShops().then((_) {
-        setState(() {
-          _isLoading = false;
+      try {
+        Provider.of<Shops>(context).fetchAndSetShops().then((_) {
+          setState(() {
+            _isLoading = false;
+          });
         });
-      });
+      } catch (error) {
+        Display.dialogError(context, error);
+      }
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -39,7 +44,12 @@ class _ShopScreenState extends State<ShopScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const Center(child: CircularProgressIndicator())
+        ? Container(
+            padding: const EdgeInsets.all(60),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
         : const ShopGridView();
   }
 }
