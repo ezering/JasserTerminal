@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/models/shop.dart';
-import 'package:jasser_terminal/screens/shelf/shelf_screen.dart';
-import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
+import 'package:jasser_terminal/providers/products.dart';
+import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 
-class ShopItemDismissable extends StatelessWidget {
-  const ShopItemDismissable({
+class ShelfProductListDismissable extends StatelessWidget {
+  const ShelfProductListDismissable({
     Key? key,
-    required this.shopData,
+    required this.index,
+    required this.productsData,
   }) : super(key: key);
 
-  final Shop shopData;
+  final int index;
+  final Products productsData;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(shopData.id),
+      key: Key(index.toString()),
       background: const EditSwipe(),
       secondaryBackground: const DeleteSwipe(),
       confirmDismiss: (direction) async {
@@ -52,43 +53,29 @@ class ShopItemDismissable extends StatelessWidget {
           return res;
         } else {
           // Allez Sur la page Editer;
-          Navigator.of(context).pushNamed(EditShopScreen.routeName);
         }
       },
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context)
-              .pushNamed(ShelfScreen.routeName, arguments: shopData.id);
-        },
-        splashColor: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                shopData.name,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                shopData.address,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ],
+      child: Card(
+        child: ListTile(
+          onTap: () {
+            // Allez Sur la page Details;
+            Navigator.of(context).pushNamed(ProductDetailsScreen.routeName,
+                arguments: productsData.products[index].id);
+          },
+          visualDensity: VisualDensity.comfortable,
+          leading: CircleAvatar(
+            child: Text('${index + 1}'),
+            radius: 20,
           ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.secondary,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(10),
+          title: Text(productsData.products[index].name),
+          subtitle: Text(productsData.products[index].description),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const <Widget>[
+              Icon(Icons.print_outlined),
+              SizedBox(width: 10),
+              Icon(Icons.post_add_rounded),
+            ],
           ),
         ),
       ),

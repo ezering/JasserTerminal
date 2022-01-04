@@ -14,6 +14,10 @@ class Shops extends ChangeNotifier {
     return [..._shops];
   }
 
+  Shop findById(String id) {
+    return _shops.firstWhere((shop) => shop.id == id);
+  }
+
   Future<void> fetchAndSetShops() async {
     final response = await http.get(
       Uri.parse('${ApiClass.baseUrl}/shops'),

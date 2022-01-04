@@ -1,80 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
-import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
-import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
+import 'package:jasser_terminal/providers/products.dart';
+import 'package:jasser_terminal/widgets/products/products_list_items.dart';
+import 'package:provider/provider.dart';
 
 class ShelfProductsList extends StatelessWidget {
   const ShelfProductsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return Dismissible(
-          key: Key(index.toString()),
-          background: const EditSwipe(),
-          secondaryBackground: const DeleteSwipe(),
-          confirmDismiss: (direction) async {
-            if (direction == DismissDirection.endToStart) {
-              final bool res = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: const Text(
-                          "Etes-vous sûr que vous voulez supprimer?"),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text(
-                            "Annuler",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: const Text(
-                            "Supprimer",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  });
-              return res;
-            } else {
-              // Allez Sur la page Editer;
-            }
-          },
-          child: Card(
-            child: ListTile(
-              onTap: () {
-                // Allez Sur la page Details;
-                Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
-              },
-              visualDensity: VisualDensity.comfortable,
-              leading: CircleAvatar(
-                child: Text('${index + 1}'),
-                radius: 20,
-              ),
-              title: const Text('Titre - Produit'),
-              subtitle: const Text('Déscription'),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Icon(Icons.print_outlined),
-                  SizedBox(width: 10),
-                  Icon(Icons.post_add_rounded),
-                ],
+    final productsData = Provider.of<Products>(context);
+    return productsData.products.isNotEmpty
+        ? ListView.builder(
+            itemBuilder: (context, index) {
+              return ShelfProductListDismissable(
+                  index: index, productsData: productsData);
+            },
+            itemCount: productsData.products.length,
+          )
+        : Container(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Text(
+                'Aucun produit trouvé',
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
-          ),
-        );
-      },
-      itemCount: 10,
-    );
+          );
   }
 }

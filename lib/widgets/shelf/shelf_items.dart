@@ -57,7 +57,8 @@ class ShelfItemDismissable extends StatelessWidget {
       },
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(ShelfProducts.routeName);
+          Navigator.of(context)
+              .pushNamed(ShelfProducts.routeName, arguments: shelfData.id);
         },
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),

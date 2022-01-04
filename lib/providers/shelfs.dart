@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:jasser_terminal/models/http_exception.dart';
 import 'package:jasser_terminal/models/product.dart';
 import 'package:jasser_terminal/models/shelf.dart';
+import 'package:jasser_terminal/models/shop.dart';
 import 'package:jasser_terminal/providers/api_class.dart';
 
 class Shelfs extends ChangeNotifier {
@@ -19,9 +20,17 @@ class Shelfs extends ChangeNotifier {
     return [..._productsOnShelf];
   }
 
-  Future<void> fetchAndSetShelfs() async {
+  Shelf findById(String id) {
+    return _shelfs.firstWhere((shelf) => shelf.id == id);
+  }
+
+  Product findProductById(String id) {
+    return _productsOnShelf.firstWhere((product) => product.id == id);
+  }
+
+  Future<void> fetchAndSetProducts(Shop shop) async {
     final response = await http.get(
-      Uri.parse('${ApiClass.baseUrl}/shelfs'),
+      Uri.parse('${ApiClass.baseUrl}/shelfs/byshop/${shop.id}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${await ApiClass.getToken()}',

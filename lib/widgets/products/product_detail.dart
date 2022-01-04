@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/product.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({Key? key}) : super(key: key);
-
+  const ProductDetails({
+    Key? key,
+    required this.singleProductData,
+  }) : super(key: key);
+  final Product singleProductData;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -35,9 +39,9 @@ class ProductDetails extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "Titre du Produit",
-                      style: TextStyle(
+                    Text(
+                      singleProductData.name,
+                      style: const TextStyle(
                         fontSize: 22,
                         color: Colors.white,
                       ),
@@ -67,7 +71,7 @@ class ProductDetails extends StatelessWidget {
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                                 Text(
-                                  "15.00€",
+                                  "${singleProductData.price}€",
                                   style: Theme.of(context).textTheme.bodyText1,
                                 )
                               ],
@@ -101,7 +105,7 @@ class ProductDetails extends StatelessWidget {
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                                 Text(
-                                  "2l",
+                                  singleProductData.quantity,
                                   style: Theme.of(context).textTheme.bodyText1,
                                 )
                               ],
@@ -134,9 +138,14 @@ class ProductDetails extends StatelessWidget {
                                   "Produit ID : ",
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
-                                Text(
-                                  "sfef-hgrt-dsez",
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    singleProductData.id,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
                                 )
                               ],
                             ),
@@ -222,7 +231,7 @@ class ProductDetails extends StatelessWidget {
                                         Theme.of(context).textTheme.headline6,
                                   ),
                                   Text(
-                                    "\nContient l'alcool, déconseillé pour les bébés, conseiller dans un cadre sociale....blah blah blah!.",
+                                    singleProductData.description,
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   )
