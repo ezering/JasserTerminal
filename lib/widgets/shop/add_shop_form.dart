@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/display.dart';
+import 'package:jasser_terminal/providers/shops.dart';
+import 'package:provider/provider.dart';
 
 class AddShopForm extends StatefulWidget {
   const AddShopForm({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class _AddShopFormState extends State<AddShopForm> {
   };
   var _isLoading = false;
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -23,11 +26,21 @@ class _AddShopFormState extends State<AddShopForm> {
     setState(() {
       _isLoading = true;
     });
-    // Send request
-    setState(() {
-      _isLoading = false;
-    });
-    print(_formData);
+    // Ajout du shop...
+    try {
+      await Provider.of<Shops>(context, listen: false).addShop(
+        _formData['name'] as String,
+        _formData['location'] as String,
+      );
+      Display.dialogSuccess(context, "Boutique ajoutée avec succès");
+      _formKey.currentState!.reset();
+    } catch (error) {
+      Display.dialogError(context, error);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/screens/product/add_product_screen.dart';
 import '/screens/categories_screen.dart';
 import '/screens/dashboard_screen.dart';
 import 'infos_screen.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          // Navigator.pushNamed(context, '/add');
+          Navigator.of(context).pushNamed(AddProductScreen.routeName);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

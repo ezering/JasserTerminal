@@ -55,5 +55,96 @@ class Products extends ChangeNotifier {
         throw Exception('Erreur de chargement des boutiques');
       }
     }
+
+    // add product to shelf
+    Future<void> addProductToShelf(String shelfId, String name, double price,
+        String quantity, String description) async {
+      try {
+        final response = await http.post(
+          Uri.parse('${ApiClass.baseUrl}/products/create'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${await ApiClass.getToken()}',
+          },
+          body: json.encode(
+            {
+              'name': name,
+              'price': price,
+              'quantity': quantity,
+              'description': description,
+              'shelf_id': shelfId,
+            },
+          ),
+        );
+        final responseData = json.decode(response.body);
+        _products.add(
+          Product(
+            id: responseData['id'],
+            name: name,
+            description: description,
+            price: price,
+            quantity: quantity,
+          ),
+        );
+        notifyListeners();
+        if (responseData['error'] != null) {
+          throw HttpException(responseData['error']);
+        }
+      } catch (error) {
+        rethrow;
+      }
+    }
+  }
+
+  // edit product on shelf
+  Future<void> editProduct(
+      String id, String shelfId, Product newProduct) async {
+    try {
+      final response = await http.patch(
+        Uri.parse('${ApiClass.baseUrl}/products/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+        body: json.encode(
+          {
+            'name': newProduct.name,
+            'shelfId': shelfId,
+            'price': newProduct.price,
+            'quantity': newProduct.quantity,
+            'description': newProduct.description,
+          },
+        ),
+      );
+      final responseData = json.decode(response.body);
+      final productIndex = _products.indexWhere((product) => product.id == id);
+      _products[productIndex] = newProduct;
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // delete product on shelf
+  Future<void> deleteProduct(String id) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('${ApiClass.baseUrl}/products/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+      );
+      final responseData = json.decode(response.body);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+      _products.removeWhere((product) => product.id == id);
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
   }
 }

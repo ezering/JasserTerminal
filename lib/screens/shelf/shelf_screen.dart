@@ -26,6 +26,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
 
   Future<void> _refreshShelfs(BuildContext context) async {
     final shopId = ModalRoute.of(context)!.settings.arguments as String;
+
     final loadedShop =
         Provider.of<Shops>(context, listen: false).findById(shopId);
     await Provider.of<Shelfs>(context, listen: false)
@@ -57,6 +58,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final id = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Etagère'),
@@ -68,14 +70,17 @@ class _ShelfScreenState extends State<ShelfScreen> {
                 child: CircularProgressIndicator(),
               ),
             )
-          : RefreshIndicator(
-              onRefresh: () => _refreshShelfs(context),
-              child: Column(
-                children: const [
-                  ShelfList(),
-                  AddShelfButton(),
-                ],
-              )),
+          : SingleChildScrollView(
+              child: RefreshIndicator(
+                onRefresh: () => _refreshShelfs(context),
+                child: Column(
+                  children: [
+                    const ShelfList(),
+                    AddShelfButton(shopId: id),
+                  ],
+                ),
+              ),
+            ),
       drawer: const CustomDrawer(),
     );
   }

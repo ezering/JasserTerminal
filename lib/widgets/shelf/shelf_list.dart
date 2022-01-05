@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class ShelfList extends StatelessWidget {
   static const routeName = '/shelf-list';
-  const ShelfList({Key? key}) : super(key: key);
+  const ShelfList({Key? key, shopId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +17,7 @@ class ShelfList extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.all(10),
             children: List.generate(
               shelfData.shelfs.length,

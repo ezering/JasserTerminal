@@ -27,7 +27,10 @@ class AddShopButton extends StatelessWidget {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(AddShopScreen.routeName);
+                        },
                         icon: const Icon(Icons.add_business_rounded, size: 50),
                         color: Theme.of(context).colorScheme.secondary,
                       ),

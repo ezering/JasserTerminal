@@ -58,7 +58,7 @@ class Shelfs extends ChangeNotifier {
             id: shelf['id'],
             name: shelf['name'],
             description: shelf['description'],
-            products: loadedProducts,
+            // products: loadedProducts,
           ),
         );
       }
@@ -78,21 +78,89 @@ class Shelfs extends ChangeNotifier {
         throw Exception('Erreur de chargement des étagères');
       }
     }
-    // switch (errorData.statusCode) {
-    //   case 401:
-    //     throw HttpException(
-    //         "Vous n'êtes pas autorisé à accéder à cette ressource");
-    //   case 400:
-    //     throw HttpException("Vous n'avez pas entré de données valides");
-    //   case 404:
-    //     throw HttpException("Aucun shop trouvé");
-    //   case 500:
-    //     throw HttpException(
-    //         "Une erreur interne est survenue, veuillez réessayer plus tard");
-    //   default:
-    //     throw HttpException(
-    //       'Unexpected error ${response.statusCode}',
-    //     );
-    // }
+  }
+
+  // add shelf
+  Future<void> addShelf(String id, String name, String description) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiClass.baseUrl}/shelfs/create'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+        body: json.encode(
+          <String, String>{
+            'id': id,
+            'name': name,
+            'description': description,
+          },
+        ),
+      );
+      final responseData = json.decode(response.body);
+      _shelfs.add(
+        Shelf(
+          id: responseData['shelf']['id'],
+          name: responseData['shelf']['name'],
+          description: responseData['shelf']['description'],
+        ),
+      );
+      notifyListeners();
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+// update shelf
+  Future<void> updateShelf(String id, Shelf newShelf) async {
+    try {
+      final response = await http.patch(
+        Uri.parse('${ApiClass.baseUrl}/shelfs/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+        body: json.encode(
+          <String, dynamic>{
+            'name': newShelf.name,
+            'description': newShelf.description,
+          },
+        ),
+      );
+      final responseData = json.decode(response.body);
+      final shelfIndex = _shelfs.indexWhere((shelf) => shelf.id == id);
+      _shelfs[shelfIndex] = newShelf;
+      notifyListeners();
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // delete shelf
+  Future<void> deleteShelf(String id) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('${ApiClass.baseUrl}/shelfs/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+      );
+      final responseData = json.decode(response.body);
+      final shelfIndex = _shelfs.indexWhere((shelf) => shelf.id == id);
+      _shelfs.removeAt(shelfIndex);
+      notifyListeners();
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 }

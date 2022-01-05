@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/display.dart';
+import 'package:jasser_terminal/providers/shelfs.dart';
+import 'package:provider/provider.dart';
 
 class AddShelfForm extends StatefulWidget {
-  const AddShelfForm({Key? key}) : super(key: key);
+  const AddShelfForm({Key? key, required this.shopId}) : super(key: key);
+  final String shopId;
 
   @override
   State<AddShelfForm> createState() => _AddShelfFormState();
@@ -15,7 +19,12 @@ class _AddShelfFormState extends State<AddShelfForm> {
   };
   var _isLoading = false;
 
-  void _submitForm() {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -23,11 +32,19 @@ class _AddShelfFormState extends State<AddShelfForm> {
     setState(() {
       _isLoading = true;
     });
-    // Send request
-    setState(() {
-      _isLoading = false;
-    });
-    print(_formData);
+    // Ajout du shelf
+    try {
+      await Provider.of<Shelfs>(context, listen: false).addShelf(widget.shopId,
+          _formData['name'] as String, _formData['description'] as String);
+      _formKey.currentState!.reset();
+      Display.dialogSuccess(context, "Etage ajouté avec succès");
+    } catch (error) {
+      Display.dialogError(context, error);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

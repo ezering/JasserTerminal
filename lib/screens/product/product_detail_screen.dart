@@ -17,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Détails du produit'),
       ),
-      body:  ProductDetails(singleProductData: loadedProduct),
+      body: ProductDetails(singleProductData: loadedProduct),
       drawer: const CustomDrawer(),
     );
   }

@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/widgets/shelf/add_shelf_form.dart';
+import 'package:jasser_terminal/widgets/products/add_product_form.dart';
 
-class AddShelfScreen extends StatelessWidget {
-  static const routeName = '/add-shelf';
-  const AddShelfScreen({Key? key}) : super(key: key);
+class AddProductScreen extends StatelessWidget {
+  static const routeName = '/add-product';
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final shopId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
-      appBar: addShelfAppBar(context),
+      appBar: addProductAppBar(context),
       body: SingleChildScrollView(
         child: Column(
-          children:  <Widget>[
-            const WelcomeTextAddShelf(),
-            AddShelfForm(shopId: shopId),
+          children: const <Widget>[
+            WelcomeTextAddProduct(),
+            AddProductForm(),
           ],
         ),
       ),
     );
   }
 
-  AppBar addShelfAppBar(BuildContext context) {
+  AppBar addProductAppBar(BuildContext context) {
     return AppBar(
-      title: const Text('Ajouter une étagère',
+      title: const Text('Ajouter un produit',
           style: TextStyle(color: Colors.purple)),
       leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.purple),
@@ -37,8 +36,8 @@ class AddShelfScreen extends StatelessWidget {
   }
 }
 
-class WelcomeTextAddShelf extends StatelessWidget {
-  const WelcomeTextAddShelf({
+class WelcomeTextAddProduct extends StatelessWidget {
+  const WelcomeTextAddProduct({
     Key? key,
   }) : super(key: key);
 
@@ -47,7 +46,7 @@ class WelcomeTextAddShelf extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: const Text(
-        'Ajouter une étagère!',
+        'Ajouter un produit!',
         style: TextStyle(
           color: Colors.purple,
           fontSize: 28,

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:jasser_terminal/screens/shelf/add_shelf_screen.dart';
 
 class AddShelfButton extends StatelessWidget {
-  const AddShelfButton({Key? key}) : super(key: key);
-
+  const AddShelfButton({Key? key, required this.shopId}) : super(key: key);
+  final String shopId;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(AddShelfScreen.routeName);
+          Navigator.of(context)
+              .pushNamed(AddShelfScreen.routeName, arguments: shopId);
         },
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
@@ -24,7 +25,11 @@ class AddShelfButton extends StatelessWidget {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                              AddShelfScreen.routeName,
+                              arguments: shopId);
+                        },
                         icon: const Icon(Icons.add_circle_outline_outlined,
                             size: 25),
                         color: Theme.of(context).colorScheme.secondary,

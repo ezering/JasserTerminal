@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClass {
   static const String baseUrl = "https://jasser-terminal-server.herokuapp.com";
-  // static const String token = "token";
 
   // get token
   static Future<String?> getToken() async {

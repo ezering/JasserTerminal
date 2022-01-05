@@ -19,6 +19,7 @@ class ShopGridView extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.all(10),
             children: List.generate(
               shopData.shops.length,

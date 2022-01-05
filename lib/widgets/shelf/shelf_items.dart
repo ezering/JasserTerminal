@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/shelf.dart';
+import 'package:jasser_terminal/providers/shelfs.dart';
 import 'package:jasser_terminal/screens/shelf/edit_shelf_screen.dart';
 import 'package:jasser_terminal/screens/shelf/shelf_products_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
+import 'package:provider/provider.dart';
 
 class ShelfItemDismissable extends StatelessWidget {
   const ShelfItemDismissable({
@@ -34,7 +36,7 @@ class ShelfItemDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(false);
                       },
                     ),
                     TextButton(
@@ -43,7 +45,9 @@ class ShelfItemDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Provider.of<Shelfs>(context, listen: false)
+                            .deleteShelf(shelfData.id);
+                        Navigator.of(context).pop(true);
                       },
                     ),
                   ],
@@ -52,7 +56,8 @@ class ShelfItemDismissable extends StatelessWidget {
           return res;
         } else {
           // Allez Sur la page Editer;
-          Navigator.of(context).pushNamed(EditShelfScreen.routeName);
+          Navigator.of(context)
+              .pushNamed(EditShelfScreen.routeName, arguments: shelfData.id);
         }
       },
       child: InkWell(

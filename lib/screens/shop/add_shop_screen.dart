@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/screens/home_screen.dart';
 import 'package:jasser_terminal/widgets/shop/add_shop_form.dart';
 
 class AddShopScreen extends StatelessWidget {
@@ -28,8 +27,7 @@ class AddShopScreen extends StatelessWidget {
       leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.purple),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                HomeScreen.routeName, (route) => false);
+            Navigator.of(context).pop();
           }),
       backgroundColor: Colors.white,
       elevation: 0,

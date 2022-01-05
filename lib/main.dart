@@ -5,6 +5,7 @@ import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
 import 'package:jasser_terminal/screens/category/category_products_screen.dart';
 import 'package:jasser_terminal/screens/category/category_screen.dart';
+import 'package:jasser_terminal/screens/product/add_product_screen.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
 import 'package:jasser_terminal/screens/shelf/add_shelf_screen.dart';
 import 'package:jasser_terminal/screens/shelf/edit_shelf_screen.dart';
@@ -107,6 +108,7 @@ class MyApp extends StatelessWidget {
             ShelfList.routeName: (context) => const ShelfList(),
             ProductDetailsScreen.routeName: (context) =>
                 const ProductDetailsScreen(),
+            AddProductScreen.routeName: (context) => const AddProductScreen(),
             CategoryScreenList.routeName: (context) =>
                 const CategoryScreenList(),
             CategoryProducts.routeName: (context) => const CategoryProducts(),

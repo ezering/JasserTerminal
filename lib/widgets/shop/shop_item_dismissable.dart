@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/shop.dart';
+import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/shelf/shelf_screen.dart';
 import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
+import 'package:provider/provider.dart';
 
 class ShopItemDismissable extends StatelessWidget {
   const ShopItemDismissable({
@@ -34,7 +36,7 @@ class ShopItemDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(false);
                       },
                     ),
                     TextButton(
@@ -43,7 +45,9 @@ class ShopItemDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Provider.of<Shops>(context, listen: false)
+                            .deleteShop(shopData.id);
+                        Navigator.of(context).pop(true);
                       },
                     ),
                   ],
@@ -52,7 +56,8 @@ class ShopItemDismissable extends StatelessWidget {
           return res;
         } else {
           // Allez Sur la page Editer;
-          Navigator.of(context).pushNamed(EditShopScreen.routeName);
+          Navigator.of(context)
+              .pushNamed(EditShopScreen.routeName, arguments: shopData.id);
         }
       },
       child: InkWell(

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
@@ -19,15 +17,17 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Acceuil'),
+        title: const Text('Acceuil'),
       ),
-      body: RefreshIndicator(
-        onRefresh: () => _refreshShops(context),
-        child: Column(
-          children: const [
-            ShopScreen(),
-            AddShopButton(),
-          ],
+      body: SingleChildScrollView(
+        child: RefreshIndicator(
+          onRefresh: () => _refreshShops(context),
+          child: Column(
+            children: const [
+              ShopScreen(),
+              AddShopButton(),
+            ],
+          ),
         ),
       ),
     );
