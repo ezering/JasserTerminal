@@ -30,7 +30,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
     final loadedShop =
         Provider.of<Shops>(context, listen: false).findById(shopId);
     await Provider.of<Shelfs>(context, listen: false)
-        .fetchAndSetProducts(loadedShop);
+        .fetchAndSetShelfs(loadedShop);
   }
 
   @override
@@ -43,7 +43,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
         _isLoading = true;
       });
       try {
-        Provider.of<Shelfs>(context).fetchAndSetProducts(loadedShop).then((_) {
+        Provider.of<Shelfs>(context).fetchAndSetShelfs(loadedShop).then((_) {
           setState(() {
             _isLoading = false;
           });

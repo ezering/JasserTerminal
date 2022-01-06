@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/display.dart';
 import 'package:jasser_terminal/models/shelf.dart';
-import 'package:jasser_terminal/providers/shelfs.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:provider/provider.dart';
 
@@ -80,28 +79,18 @@ class _AddProductFormState extends State<AddProductForm> {
   @override
   Widget build(BuildContext context) {
     var shopProvider = Provider.of<Shops>(context);
-    List<Shelf> getCorrespondingShelfToShop(_selectedShop) {
+    List<Shelf> _shopShelfs = shopProvider.shopShelfs;
+
+    List<Shelf> getCorrespondingShelfToShop(_shopShelfs, _selectedShop) {
       if (_selectedShop != null) {
-        return [];
+        return _shopShelfs
+            .where((shelf) => shelf.shop.id == _selectedShop)
+            .toList();
       } else {
         return [];
       }
     }
 
-    //  List<Shelf> getCorrespondingShelfToShop(Shops shopProvider) {
-    //   var shelfs = shopProvider.shopShelfs
-    //       .where((shelf) => shelf.shop?.id == _selectedShop)
-    //       .toList();
-    //   return shelfs;
-    // }
-
-    // find in shopProvider.shopShelfs the shelfs with shop.id = _selectedShop
-    // _shelfs = getCorrespondingShelfToShop(_selectedShop);
-
-    // get shelfs from shopProvider.shops based on _selectedShop
-    // var shelfs = shopProvider.shops
-    //     .firstWhere((shop) => shop.id == _selectedShop)
-    //     .shelfs;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       child: Form(
@@ -121,7 +110,8 @@ class _AddProductFormState extends State<AddProductForm> {
               onChanged: (value) => setState(() {
                 _selectedShop = value as String;
                 _shelfs = [];
-                _shelfs = getCorrespondingShelfToShop(_selectedShop);
+                _shelfs =
+                    getCorrespondingShelfToShop(_shopShelfs, _selectedShop);
               }),
             ),
             DropdownButtonFormField(

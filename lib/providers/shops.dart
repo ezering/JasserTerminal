@@ -43,6 +43,12 @@ class Shops extends ChangeNotifier {
               id: shop['shelfs'][i]['id'],
               name: shop['shelfs'][i]['name'],
               description: shop['shelfs'][i]['description'],
+              shop: Shop(
+                id: shop['id'],
+                name: shop['name'],
+                address: shop['address'],
+                shelfs: [],
+              ),
             ),
           );
         }
@@ -118,11 +124,10 @@ class Shops extends ChangeNotifier {
 
       _shops.add(
         Shop(
-          id: responseData["shop"]['id'],
-          name: responseData["shop"]['name'],
-          address: responseData["shop"]['address'],
-          shelfs: _shopShelfs
-        ),
+            id: responseData["shop"]['id'],
+            name: responseData["shop"]['name'],
+            address: responseData["shop"]['address'],
+            shelfs: _shopShelfs),
       );
       notifyListeners();
       if (responseData['error'] != null) {

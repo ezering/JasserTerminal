@@ -28,7 +28,7 @@ class Shelfs extends ChangeNotifier {
     return _productsOnShelf.firstWhere((product) => product.id == id);
   }
 
-  Future<void> fetchAndSetProducts(Shop shop) async {
+  Future<void> fetchAndSetShelfs(Shop shop) async {
     final response = await http.get(
       Uri.parse('${ApiClass.baseUrl}/shelfs/byshop/${shop.id}'),
       headers: <String, String>{
@@ -58,7 +58,12 @@ class Shelfs extends ChangeNotifier {
             id: shelf['id'],
             name: shelf['name'],
             description: shelf['description'],
-            // products: loadedProducts,
+            shop: Shop(
+              id: '',
+              name: '',
+              address: '',
+              shelfs: [],
+            ),
           ),
         );
       }
@@ -103,6 +108,12 @@ class Shelfs extends ChangeNotifier {
           id: responseData['shelf']['id'],
           name: responseData['shelf']['name'],
           description: responseData['shelf']['description'],
+          shop: Shop(
+            id: responseData['shelf']['shop']['id'],
+            name: responseData['shelf']['shop']['name'],
+            address: responseData['shelf']['shop']['address'],
+            shelfs: [],
+          ),
         ),
       );
       notifyListeners();

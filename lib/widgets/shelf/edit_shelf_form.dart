@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/display.dart';
 import 'package:jasser_terminal/models/shelf.dart';
+import 'package:jasser_terminal/models/shop.dart';
 import 'package:jasser_terminal/providers/shelfs.dart';
 import 'package:provider/provider.dart';
 
@@ -14,10 +15,10 @@ class EditShelfForm extends StatefulWidget {
 class _EditShelfFormState extends State<EditShelfForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var _editedShelf = Shelf(
-    id: '',
-    name: '',
-    description: '',
-  );
+      id: '',
+      name: '',
+      description: '',
+      shop: Shop(id: 'id', name: '', address: '', shelfs: []));
 
   var _initValues = {
     'name': '',
@@ -91,6 +92,7 @@ class _EditShelfFormState extends State<EditShelfForm> {
                   id: _editedShelf.id,
                   name: value ?? _editedShelf.name,
                   description: _editedShelf.description,
+                  shop: _editedShelf.shop,
                 );
               },
             ),
@@ -108,6 +110,7 @@ class _EditShelfFormState extends State<EditShelfForm> {
                   id: _editedShelf.id,
                   name: _editedShelf.name,
                   description: value ?? _editedShelf.description,
+                  shop: _editedShelf.shop,
                 );
               },
             ),
