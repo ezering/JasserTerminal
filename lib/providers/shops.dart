@@ -78,32 +78,7 @@ class Shops extends ChangeNotifier {
     }
   }
 
-  // // method to fill the shelfs of a shop
-  // Future<void> fetchAndSetShopShelfs(String id) async {
-  //   final response = await http.get(
-  //     Uri.parse('${ApiClass.baseUrl}/shops/$id/shelfs'),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //       'Authorization': 'Bearer ${await ApiClass.getToken()}',
-  //     },
-  //   );
-  //   if (response.statusCode == 200) {
-  //     var responseData = json.decode(response.body) as List<dynamic>;
-  //     final List<Shelf> loadedShelfs = [];
-  //     for (var shelf in responseData) {
-  //       loadedShelfs.add(
-  //         Shelf(
-  //           id: shelf['id'],
-  //           name: shelf['name'],
-  //           description: shelf['description'],
-  //         ),
-  //       );
-  //     }
-  //     _shopShelfs = loadedShelfs;
-  //     notifyListeners();
-  //   }
-  // }
-
+ 
   // Add Shop
   Future<void> addShop(String name, String address) async {
     try {

@@ -4,7 +4,8 @@ import 'package:jasser_terminal/widgets/products/products_list_items.dart';
 import 'package:provider/provider.dart';
 
 class ShelfProductsList extends StatelessWidget {
-  const ShelfProductsList({Key? key}) : super(key: key);
+  const ShelfProductsList({Key? key, required this.shelfId}) : super(key: key);
+  final String shelfId;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ShelfProductsList extends StatelessWidget {
         ? ListView.builder(
             itemBuilder: (context, index) {
               return ShelfProductListDismissable(
-                  index: index, productsData: productsData);
+                  index: index, shelfId: shelfId, productsData: productsData);
             },
             itemCount: productsData.products.length,
           )

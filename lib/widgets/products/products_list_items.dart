@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/providers/products.dart';
+import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
+import 'package:provider/provider.dart';
 
 class ShelfProductListDismissable extends StatelessWidget {
   const ShelfProductListDismissable({
     Key? key,
     required this.index,
+    required this.shelfId,
     required this.productsData,
   }) : super(key: key);
 
   final int index;
+  final String shelfId;
   final Products productsData;
 
   @override
@@ -35,7 +39,7 @@ class ShelfProductListDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(false);
                       },
                     ),
                     TextButton(
@@ -44,7 +48,9 @@ class ShelfProductListDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Provider.of<Products>(context, listen: false)
+                            .deleteProduct(productsData.products[index].id);
+                        Navigator.of(context).pop(true);
                       },
                     ),
                   ],
@@ -53,6 +59,11 @@ class ShelfProductListDismissable extends StatelessWidget {
           return res;
         } else {
           // Allez Sur la page Editer;
+          Navigator.of(context).pushNamed(EditProductScreen.routeName,
+              arguments: {
+                'productId': productsData.products[index].id,
+                'shelfId': shelfId
+              });
         }
       },
       child: Card(
@@ -60,7 +71,10 @@ class ShelfProductListDismissable extends StatelessWidget {
           onTap: () {
             // Allez Sur la page Details;
             Navigator.of(context).pushNamed(ProductDetailsScreen.routeName,
-                arguments: productsData.products[index].id);
+                arguments: {
+                  'productId': productsData.products[index].id,
+                  'shelfId': shelfId
+                });
           },
           visualDensity: VisualDensity.comfortable,
           leading: CircleAvatar(

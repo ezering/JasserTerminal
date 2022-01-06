@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/display.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/providers/shelfs.dart';
+import 'package:jasser_terminal/screens/product/quick_add_product.dart';
 import 'package:jasser_terminal/widgets/drawer/custom_drawer.dart';
 import 'package:jasser_terminal/widgets/products/shelf_products.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,8 @@ class _ShelfProductsState extends State<ShelfProducts> {
 
   @override
   Widget build(BuildContext context) {
+    final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Produits sur étagère'),
@@ -71,7 +74,22 @@ class _ShelfProductsState extends State<ShelfProducts> {
             )
           : RefreshIndicator(
               onRefresh: () => _refreshProducts(context),
-              child: const ShelfProductsList()),
+              child: ShelfProductsList(shelfId: shelfId),
+            ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 60),
+        child: FloatingActionButton(
+          child: const Icon(Icons.add),
+          tooltip: 'Ajouter un produit',
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              QuickAddProductScreen.routeName,
+              arguments: shelfId,
+            );
+          },
+        ),
+      ),
       drawer: const CustomDrawer(),
     );
   }

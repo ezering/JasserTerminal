@@ -10,14 +10,19 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)!.settings.arguments as String;
+
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    final productId = arguments['productId'] as String;
+    final shelfId = arguments['shelfId'] as String;
+    
+
     final loadedProduct =
         Provider.of<Products>(context, listen: false).findById(productId);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Détails du produit'),
       ),
-      body: ProductDetails(singleProductData: loadedProduct),
+      body: ProductDetails(singleProductData: loadedProduct, shelfId: shelfId),
       drawer: const CustomDrawer(),
     );
   }

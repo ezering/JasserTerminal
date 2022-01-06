@@ -37,6 +37,8 @@ class _AddShelfFormState extends State<AddShelfForm> {
       await Provider.of<Shelfs>(context, listen: false).addShelf(widget.shopId,
           _formData['name'] as String, _formData['description'] as String);
       _formKey.currentState!.reset();
+      Navigator.of(context).pop();
+
       Display.dialogSuccess(context, "Etage ajouté avec succès");
     } catch (error) {
       Display.dialogError(context, error);
@@ -71,7 +73,7 @@ class _AddShelfFormState extends State<AddShelfForm> {
               decoration: const InputDecoration(labelText: 'Déscription'),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Veuillez entrer la déscription de l\étagere';
+                  return 'Veuillez entrer la déscription de l\'étagere';
                 }
                 return null;
               },

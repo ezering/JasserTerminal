@@ -58,6 +58,8 @@ class _EditShopFormState extends State<EditShopForm> {
     try {
       await Provider.of<Shops>(context, listen: false)
           .updateShop(_editedShop.id, _editedShop);
+      Navigator.of(context).pop();
+
       Display.dialogSuccess(context, "Boutique modifiée avec succès");
     } catch (error) {
       Display.dialogError(context, error.toString());

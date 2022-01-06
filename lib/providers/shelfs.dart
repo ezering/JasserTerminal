@@ -47,7 +47,7 @@ class Shelfs extends ChangeNotifier {
             Product(
               id: shelf['products'][i]['id'],
               name: shelf['products'][i]['name'],
-              price: shelf['products'][i]['price'],
+              price: (shelf['products'][i]['price']).toDouble(),
               description: shelf['products'][i]['description'],
               quantity: shelf['products'][i]['quantity'],
             ),

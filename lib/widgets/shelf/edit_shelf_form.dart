@@ -59,6 +59,7 @@ class _EditShelfFormState extends State<EditShelfForm> {
     try {
       await Provider.of<Shelfs>(context, listen: false)
           .updateShelf(_editedShelf.id, _editedShelf);
+      Navigator.of(context).pop();
 
       Display.dialogSuccess(context, "étagère modifiée avec succès");
     } catch (error) {

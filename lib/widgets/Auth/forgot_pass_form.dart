@@ -28,7 +28,6 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
       _isLoading = false;
     });
 
-    print(_formData);
   }
 
   @override

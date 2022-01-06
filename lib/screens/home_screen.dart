@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/screens/product/add_product_screen.dart';
 import '/screens/categories_screen.dart';
@@ -29,16 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
+          // showModalBottomSheet(
+          //   context: context,
+          //   enableDrag: true,
+          //   backgroundColor: Colors.transparent,
+          //   isScrollControlled: true,
+          //   builder: (context) {
+          //     return const ModalAddProductForm();
+          //   },
+          // );
+
           Navigator.of(context).pushNamed(AddProductScreen.routeName);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 4.0,
-          child: Container(
+          child: SizedBox(
             height: 60.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,13 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildPage() {
     switch (currentTab) {
       case 0:
-        return DashboardScreen();
+        return const DashboardScreen();
       case 1:
-        return CategoryScreen();
+        return const CategoryScreen();
       case 2:
-        return ScanScreen();
+        return const ScanScreen();
       default:
-        return InfoScreen();
+        return const InfoScreen();
     }
   }
 

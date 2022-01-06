@@ -35,7 +35,7 @@ class Products extends ChangeNotifier {
             id: product['id'],
             name: product['name'],
             description: product['description'],
-            price: product['price'],
+            price: product['price'].toDouble(),
             quantity: product['quantity'],
           ),
         );
@@ -55,44 +55,44 @@ class Products extends ChangeNotifier {
         throw Exception('Erreur de chargement des boutiques');
       }
     }
+  }
 
-    // add product to shelf
-    Future<void> addProductToShelf(String shelfId, String name, double price,
-        String quantity, String description) async {
-      try {
-        final response = await http.post(
-          Uri.parse('${ApiClass.baseUrl}/products/create'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': 'Bearer ${await ApiClass.getToken()}',
+  // add product to shelf
+  Future<void> addProductToShelf(String shelfId, String name, double price,
+      String quantity, String description) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiClass.baseUrl}/products/create'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+        body: json.encode(
+          {
+            'shelf_id': shelfId,
+            'name': name,
+            'price': price,
+            'quantity': quantity,
+            'description': description,
           },
-          body: json.encode(
-            {
-              'name': name,
-              'price': price,
-              'quantity': quantity,
-              'description': description,
-              'shelf_id': shelfId,
-            },
-          ),
-        );
-        final responseData = json.decode(response.body);
-        _products.add(
-          Product(
-            id: responseData['id'],
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-          ),
-        );
-        notifyListeners();
-        if (responseData['error'] != null) {
-          throw HttpException(responseData['error']);
-        }
-      } catch (error) {
-        rethrow;
+        ),
+      );
+      final responseData = json.decode(response.body);
+      _products.add(
+        Product(
+          id: responseData['product']['id'],
+          name: responseData['product']['name'],
+          description: responseData['product']['description'],
+          price: responseData['product']['price'].toDouble(),
+          quantity: responseData['product']['quantity'],
+        ),
+      );
+      notifyListeners();
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
       }
+    } catch (error) {
+      rethrow;
     }
   }
 

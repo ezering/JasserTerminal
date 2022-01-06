@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/product.dart';
+import 'package:jasser_terminal/providers/products.dart';
+import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({
     Key? key,
     required this.singleProductData,
+    required this.shelfId,
   }) : super(key: key);
   final Product singleProductData;
+  final String shelfId;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -33,8 +38,14 @@ class ProductDetails extends StatelessWidget {
                   children: [
                     const SizedBox(height: 15),
                     const CircleAvatar(
-                      child: Text("Numéro Produit / Image"),
-                      radius: 100,
+                      child: Text(
+                        '€',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      radius: 75,
                     ),
                     const SizedBox(
                       height: 10,
@@ -46,6 +57,68 @@ class ProductDetails extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    // Edit, Delete, add to list and print Buttons
+                    Card(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      shadowColor: Colors.black,
+                      clipBehavior: Clip.hardEdge,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.white,
+                      elevation: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        EditProductScreen.routeName,
+                                        arguments: {
+                                          'productId': singleProductData.id,
+                                          'shelfId': shelfId
+                                        });
+                                  },
+                                  icon: const Icon(
+                                      Icons.mode_edit_outline_outlined),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Provider.of<Products>(context,
+                                            listen: false)
+                                        .deleteProduct(singleProductData.id);
+                                    Navigator.of(context).pop();
+                                  },
+                                  icon: const Icon(Icons.delete_outlined),
+                                  color: Theme.of(context).errorColor,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.post_add_rounded),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.print_outlined),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
                     const SizedBox(
                       height: 10,
                     ),
@@ -156,53 +229,6 @@ class ProductDetails extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      color: Colors.white,
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                      Icons.mode_edit_outline_outlined),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.delete_outlined),
-                                  color: Theme.of(context).errorColor,
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.post_add_rounded),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.print_outlined),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -251,6 +277,58 @@ class ProductDetails extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ShortcutButtonsForProduct extends StatelessWidget {
+  const ShortcutButtonsForProduct({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      shadowColor: Colors.black,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: Colors.white,
+      elevation: 30,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.mode_edit_outline_outlined),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.delete_outlined),
+                  color: Theme.of(context).errorColor,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.post_add_rounded),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.print_outlined),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/display.dart';
-import 'package:jasser_terminal/models/shelf.dart';
 import 'package:jasser_terminal/providers/products.dart';
-import 'package:jasser_terminal/providers/shops.dart';
 import 'package:provider/provider.dart';
 
-class AddProductForm extends StatefulWidget {
-  const AddProductForm({
+class AddProductFormWithShelfId extends StatefulWidget {
+  const AddProductFormWithShelfId({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AddProductForm> createState() => _AddProductFormState();
+  State<AddProductFormWithShelfId> createState() =>
+      _AddProductFormWithShelfIdState();
 }
 
-class _AddProductFormState extends State<AddProductForm> {
+class _AddProductFormWithShelfIdState extends State<AddProductFormWithShelfId> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Map<String, dynamic> _formData = {
     'name': '',
@@ -24,10 +23,8 @@ class _AddProductFormState extends State<AddProductForm> {
   };
   var _isInit = true;
   var _isLoading = false;
-  var _selectedShop;
-  var _selectedShelf;
 
-  List<Shelf> _shelfs = [];
+  var _shelfId;
 
   @override
   void initState() {
@@ -37,18 +34,8 @@ class _AddProductFormState extends State<AddProductForm> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      try {
-        Provider.of<Shops>(context, listen: false).fetchAndSetShops().then((_) {
-          setState(() {
-            _isLoading = false;
-          });
-        });
-      } catch (error) {
-        Display.dialogError(context, error);
-      }
+      final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+      _shelfId = shelfId;
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -65,7 +52,7 @@ class _AddProductFormState extends State<AddProductForm> {
     // Ajout produit
     try {
       await Provider.of<Products>(context, listen: false).addProductToShelf(
-        _selectedShelf,
+        _shelfId,
         _formData['name'] as String,
         double.parse(_formData['price']),
         _formData['quantity'] as String,
@@ -86,69 +73,12 @@ class _AddProductFormState extends State<AddProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    var shopProvider = Provider.of<Shops>(context);
-    List<Shelf> _shopShelfs = shopProvider.shopShelfs;
-
-    List<Shelf> getCorrespondingShelfToShop(_shopShelfs, _selectedShop) {
-      if (_selectedShop != null) {
-        return _shopShelfs
-            .where((shelf) => shelf.shop.id == _selectedShop)
-            .toList();
-      } else {
-        return [];
-      }
-    }
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            DropdownButtonFormField(
-              decoration: const InputDecoration(
-                labelText: 'Selectionner la boutique',
-              ),
-              validator: (value) {
-                if (value == null) {
-                  return 'Veuillez selectionner une boutique';
-                } else {
-                  return null;
-                }
-              },
-              items: shopProvider.shops.map((shop) {
-                return DropdownMenuItem(
-                  value: shop.id,
-                  child: Text(shop.name),
-                );
-              }).toList(),
-              onChanged: (value) => setState(() {
-                _selectedShop = value as String;
-                _shelfs =
-                    getCorrespondingShelfToShop(_shopShelfs, _selectedShop);
-              }),
-            ),
-            DropdownButtonFormField(
-              decoration: const InputDecoration(
-                labelText: 'Selectionner l\'étagere.',
-              ),
-              validator: (value) {
-                if (value == null) {
-                  return 'Veuillez selectionner une étagere';
-                } else {
-                  return null;
-                }
-              },
-              items: _shelfs.map((shelf) {
-                return DropdownMenuItem(
-                  value: shelf.id,
-                  child: Text(shelf.name),
-                );
-              }).toList(),
-              onChanged: (value) => setState(() {
-                _selectedShelf = value as String;
-              }),
-            ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Nom'),
               validator: (value) {

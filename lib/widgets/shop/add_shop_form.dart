@@ -32,8 +32,10 @@ class _AddShopFormState extends State<AddShopForm> {
         _formData['name'] as String,
         _formData['location'] as String,
       );
-      Display.dialogSuccess(context, "Boutique ajoutée avec succès");
       _formKey.currentState!.reset();
+      Navigator.of(context).pop();
+
+      Display.dialogSuccess(context, "Boutique ajoutée avec succès");
     } catch (error) {
       Display.dialogError(context, error);
     } finally {
