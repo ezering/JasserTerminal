@@ -135,7 +135,7 @@ class Auth with ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('userData');
-    await prefs.clear();
+    // await prefs.clear();
   }
 
   // auto logout

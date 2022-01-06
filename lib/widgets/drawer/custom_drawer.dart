@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/providers/auth.dart';
-import 'package:jasser_terminal/screens/categories_screen.dart';
+import 'package:jasser_terminal/screens/commandes_screen.dart';
 import 'package:jasser_terminal/screens/home_screen.dart';
 import 'package:jasser_terminal/screens/infos_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Catégories'),
             onTap: () {
               Navigator.of(context)
-                  .pushReplacementNamed(CategoryScreen.routeName);
+                  .pushReplacementNamed(CommandeScreen.routeName);
             },
           ),
           const Divider(),
@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Scanner'),
             onTap: () {
               Navigator.of(context)
-                  .pushReplacementNamed(CategoryScreen.routeName);
+                  .pushReplacementNamed(CommandeScreen.routeName);
             },
           ),
           const Divider(),

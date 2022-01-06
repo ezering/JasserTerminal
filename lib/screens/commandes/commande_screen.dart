@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 
-import 'category_products_screen.dart';
+import 'commande_products_screen.dart';
 
-class CategoryScreenList extends StatelessWidget {
+class CommandeScreenList extends StatelessWidget {
   static const routeName = '/category-screen-list';
-  const CategoryScreenList({Key? key}) : super(key: key);
+  const CommandeScreenList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class CategoryScreenList extends StatelessWidget {
           },
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(CategoryProductList.routeName);
+              Navigator.of(context).pushNamed(CommandeProductList.routeName);
             },
             splashColor: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(10),
@@ -132,7 +132,7 @@ class CategoryScreenList extends StatelessWidget {
           },
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(CategoryProductList.routeName);
+              Navigator.of(context).pushNamed(CommandeProductList.routeName);
             },
             splashColor: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(10),

@@ -3,9 +3,9 @@ import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 
-class CategoryProducts extends StatelessWidget {
+class CommandeProducts extends StatelessWidget {
   static const routeName = '/category-products';
-  const CategoryProducts({Key? key}) : super(key: key);
+  const CommandeProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +77,5 @@ class CategoryProducts extends StatelessWidget {
       },
       itemCount: 10,
     );
-    
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/screens/product/add_product_screen.dart';
-import '/screens/categories_screen.dart';
+import 'commandes_screen.dart';
 import '/screens/dashboard_screen.dart';
 import 'infos_screen.dart';
 import '/screens/scan_screen.dart';
@@ -54,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   _buildBottomBarButton(
                       0, 'Accueil', Icons.space_dashboard_rounded),
-                  _buildBottomBarButton(1, 'Catégories', Icons.category_rounded)
+                  _buildBottomBarButton(
+                      1, 'Commandes', Icons.line_style_rounded)
                 ]),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return const DashboardScreen();
       case 1:
-        return const CategoryScreen();
+        return const CommandeScreen();
       case 2:
         return const ScanScreen();
       default:

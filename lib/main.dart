@@ -3,8 +3,8 @@ import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/providers/shelfs.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/auth/forgot_pass_screen.dart';
-import 'package:jasser_terminal/screens/category/category_products_screen.dart';
-import 'package:jasser_terminal/screens/category/category_screen.dart';
+import 'package:jasser_terminal/screens/commandes/commande_products_screen.dart';
+import 'package:jasser_terminal/screens/commandes/commande_screen.dart';
 import 'package:jasser_terminal/screens/product/add_product_screen.dart';
 import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
@@ -17,12 +17,12 @@ import 'package:jasser_terminal/screens/shop/add_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
 import 'package:jasser_terminal/screens/splash_screen.dart';
-import 'package:jasser_terminal/widgets/products/category_product.dart';
+import 'package:jasser_terminal/widgets/commandes/commande_product.dart';
 import 'package:jasser_terminal/widgets/shelf/shelf_list.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 import 'screens/auth/authentication_screen.dart';
-import 'screens/categories_screen.dart';
+import 'screens/commandes_screen.dart';
 import 'screens/infos_screen.dart';
 import 'screens/scan_screen.dart';
 import 'screens/home_screen.dart';
@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
             AuthenticationScreen.routeName: (context) =>
                 const AuthenticationScreen(),
             HomeScreen.routeName: (context) => const HomeScreen(),
-            CategoryScreen.routeName: (context) => const CategoryScreen(),
+            CommandeScreen.routeName: (context) => const CommandeScreen(),
             ScanScreen.routeName: (context) => const ScanScreen(),
             InfoScreen.routeName: (context) => const InfoScreen(),
             ForgotPassScreen.routeName: (context) => const ForgotPassScreen(),
@@ -114,11 +114,11 @@ class MyApp extends StatelessWidget {
             QuickAddProductScreen.routeName: (context) =>
                 const QuickAddProductScreen(),
             EditProductScreen.routeName: (context) => const EditProductScreen(),
-            CategoryScreenList.routeName: (context) =>
-                const CategoryScreenList(),
-            CategoryProducts.routeName: (context) => const CategoryProducts(),
-            CategoryProductList.routeName: (context) =>
-                const CategoryProductList(),
+            CommandeScreenList.routeName: (context) =>
+                const CommandeScreenList(),
+            CommandeProducts.routeName: (context) => const CommandeProducts(),
+            CommandeProductList.routeName: (context) =>
+                const CommandeProductList(),
             AddShopScreen.routeName: (context) => const AddShopScreen(),
             EditShopScreen.routeName: (context) => const EditShopScreen(),
             AddShelfScreen.routeName: (context) => const AddShelfScreen(),

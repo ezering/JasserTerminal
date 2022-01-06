@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/widgets/drawer/custom_drawer.dart';
-import 'package:jasser_terminal/widgets/products/category_product.dart';
+import 'package:jasser_terminal/widgets/commandes/commande_product.dart';
 
-class CategoryProductList extends StatelessWidget {
+class CommandeProductList extends StatelessWidget {
   static const routeName = '/category-product-list';
 
-  const CategoryProductList({Key? key}) : super(key: key);
+  const CommandeProductList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CategoryProductList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Produits Dans la catégorie'),
       ),
-      body: const CategoryProducts(),
+      body: const CommandeProducts(),
       drawer: const CustomDrawer(),
     );
   }
