@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/providers/shelfs.dart';
 import 'package:jasser_terminal/providers/shops.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Shops()),
         ChangeNotifierProvider(create: (context) => Shelfs()),
         ChangeNotifierProvider(create: (context) => Products()),
+        ChangeNotifierProvider(create: (context) => Commandes()),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, child) => MaterialApp(
@@ -107,7 +109,7 @@ class MyApp extends StatelessWidget {
             ShopScreen.routeName: (context) => const ShopScreen(),
             ShelfScreen.routeName: (context) => const ShelfScreen(),
             ShelfProducts.routeName: (context) => const ShelfProducts(),
-            ShelfList.routeName: (context) => const ShelfList(),
+            // ShelfList.routeName: (context) => const ShelfList(),
             ProductDetailsScreen.routeName: (context) =>
                 const ProductDetailsScreen(),
             AddProductScreen.routeName: (context) => const AddProductScreen(),

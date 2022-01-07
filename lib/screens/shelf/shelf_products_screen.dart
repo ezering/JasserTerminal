@@ -25,7 +25,11 @@ class _ShelfProductsState extends State<ShelfProducts> {
   }
 
   Future<void> _refreshProducts(BuildContext context) async {
-    final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final shelfId = arguments['shelfId'];
+
+    // final shelfId = ModalRoute.of(context)!.settings.arguments as String;
     final loadedShelf =
         Provider.of<Shelfs>(context, listen: false).findById(shelfId);
     await Provider.of<Products>(context, listen: false)
@@ -34,7 +38,10 @@ class _ShelfProductsState extends State<ShelfProducts> {
 
   @override
   void didChangeDependencies() {
-    final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final shelfId = arguments['shelfId'];
+    // final shelfId = ModalRoute.of(context)!.settings.arguments as String;
     final loadedShelf =
         Provider.of<Shelfs>(context, listen: false).findById(shelfId);
     if (_isInit) {
@@ -59,7 +66,11 @@ class _ShelfProductsState extends State<ShelfProducts> {
 
   @override
   Widget build(BuildContext context) {
-    final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final shelfId = arguments['shelfId'];
+    final shopId = arguments['shopId'];
+    // final shelfId = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +85,7 @@ class _ShelfProductsState extends State<ShelfProducts> {
             )
           : RefreshIndicator(
               onRefresh: () => _refreshProducts(context),
-              child: ShelfProductsList(shelfId: shelfId),
+              child: ShelfProductsList(shopId: shopId, shelfId: shelfId),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(

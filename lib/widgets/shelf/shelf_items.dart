@@ -11,7 +11,9 @@ class ShelfItemDismissable extends StatelessWidget {
   const ShelfItemDismissable({
     Key? key,
     required this.shelfData,
+    required this.shopId,
   }) : super(key: key);
+  final String shopId;
 
   final Shelf shelfData;
 
@@ -62,8 +64,8 @@ class ShelfItemDismissable extends StatelessWidget {
       },
       child: InkWell(
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(ShelfProducts.routeName, arguments: shelfData.id);
+          Navigator.of(context).pushNamed(ShelfProducts.routeName,
+              arguments: {'shopId': shopId, 'shelfId': shelfData.id});
         },
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),

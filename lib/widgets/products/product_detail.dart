@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/commande.dart';
 import 'package:jasser_terminal/models/product.dart';
+import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +11,15 @@ class ProductDetails extends StatelessWidget {
     Key? key,
     required this.singleProductData,
     required this.shelfId,
+    required this.shopId,
   }) : super(key: key);
   final Product singleProductData;
   final String shelfId;
+  final String shopId;
   @override
   Widget build(BuildContext context) {
+    final commandeProvider = Provider.of<Commandes>(context, listen: false);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -101,7 +107,50 @@ class ProductDetails extends StatelessWidget {
                                   color: Theme.of(context).errorColor,
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Commande _commandeToAdd = Commande(
+                                      id: DateTime.now().toString(),
+                                      shopId: shopId,
+                                      shelfId: shelfId,
+                                      product: singleProductData,
+                                    );
+                                    if (!commandeProvider.commandes
+                                        .contains(_commandeToAdd)) {
+                                      commandeProvider
+                                          .addCommande(_commandeToAdd);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          duration: Duration(seconds: 1),
+                                          backgroundColor: Colors.green,
+                                          content: Text(
+                                            'Produit ajouté à la liste des commandes',
+                                          ),
+                                        ),
+                                      );
+
+                                      // commandeProvider.commandes.product.name
+                                      for (var i = 0;
+                                          i < commandeProvider.commandes.length;
+                                          i++) {
+                                        print(commandeProvider
+                                            .commandes[i].product.name);
+                                      }
+                                    }
+
+                                    if (commandeProvider.commandes
+                                        .contains(_commandeToAdd)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          duration: Duration(seconds: 1),
+                                          backgroundColor: Colors.red,
+                                          content: Text(
+                                              'Produit déjà dans la liste des commandes'),
+                                        ),
+                                      );
+                                    }
+                                  },
                                   icon: const Icon(Icons.post_add_rounded),
                                   color:
                                       Theme.of(context).colorScheme.secondary,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/models/commande.dart';
+import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
@@ -12,14 +14,18 @@ class ShelfProductListDismissable extends StatelessWidget {
     required this.index,
     required this.shelfId,
     required this.productsData,
+    required this.shopId,
   }) : super(key: key);
 
   final int index;
+  final String shopId;
   final String shelfId;
   final Products productsData;
 
   @override
   Widget build(BuildContext context) {
+    final commandeProvider = Provider.of<Commandes>(context, listen: false);
+
     return Dismissible(
       key: Key(index.toString()),
       background: const EditSwipe(),
@@ -70,11 +76,12 @@ class ShelfProductListDismissable extends StatelessWidget {
         child: ListTile(
           onTap: () {
             // Allez Sur la page Details;
-            Navigator.of(context).pushNamed(ProductDetailsScreen.routeName,
-                arguments: {
-                  'productId': productsData.products[index].id,
-                  'shelfId': shelfId
-                });
+            Navigator.of(context)
+                .pushNamed(ProductDetailsScreen.routeName, arguments: {
+              'productId': productsData.products[index].id,
+              'shelfId': shelfId,
+              'shopId': shopId
+            });
           },
           visualDensity: VisualDensity.comfortable,
           leading: CircleAvatar(
@@ -85,10 +92,53 @@ class ShelfProductListDismissable extends StatelessWidget {
           subtitle: Text(productsData.products[index].description),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Icon(Icons.print_outlined),
-              SizedBox(width: 10),
-              Icon(Icons.post_add_rounded),
+            children: <Widget>[
+              const Icon(
+                Icons.print_outlined,
+              ),
+              const SizedBox(width: 10),
+              IconButton(
+                onPressed: () {
+                  Commande _commandeToAdd = Commande(
+                    id: DateTime.now().toString(),
+                    shopId: shopId,
+                    shelfId: shelfId,
+                    product: productsData.products[index],
+                  );
+                  if (!commandeProvider.commandes.contains(_commandeToAdd)) {
+                    commandeProvider.addCommande(_commandeToAdd);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          'Produit ajouté à la liste des commandes',
+                        ),
+                      ),
+                    );
+
+                    // commandeProvider.commandes.product.name
+                    for (var i = 0;
+                        i < commandeProvider.commandes.length;
+                        i++) {
+                      print(commandeProvider.commandes[i].product.name);
+                    }
+                  }
+
+                  if (commandeProvider.commandes.contains(_commandeToAdd)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        backgroundColor: Colors.red,
+                        content:
+                            Text('Produit déjà dans la liste des commandes'),
+                      ),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.post_add_rounded),
+              ),
+              // Icon(Icons.post_add_rounded),
             ],
           ),
         ),

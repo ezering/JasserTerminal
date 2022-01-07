@@ -14,6 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final productId = arguments['productId'] as String;
     final shelfId = arguments['shelfId'] as String;
+    final shopId = arguments['shopId'] as String;
     
 
     final loadedProduct =
@@ -22,7 +23,7 @@ class ProductDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Détails du produit'),
       ),
-      body: ProductDetails(singleProductData: loadedProduct, shelfId: shelfId),
+      body: ProductDetails(singleProductData: loadedProduct, shelfId: shelfId, shopId: shopId),
       drawer: const CustomDrawer(),
     );
   }

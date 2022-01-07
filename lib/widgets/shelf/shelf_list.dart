@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class ShelfList extends StatelessWidget {
   static const routeName = '/shelf-list';
-  const ShelfList({Key? key, shopId}) : super(key: key);
-
+  const ShelfList({Key? key, required this.shopId}) : super(key: key);
+  final String shopId;
   @override
   Widget build(BuildContext context) {
     final shelfData = Provider.of<Shelfs>(context);
@@ -22,6 +22,7 @@ class ShelfList extends StatelessWidget {
             children: List.generate(
               shelfData.shelfs.length,
               (index) => ShelfItemDismissable(
+                shopId: shopId,
                 shelfData: shelfData.shelfs[index],
               ),
             ),

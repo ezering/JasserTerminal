@@ -75,7 +75,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
                 onRefresh: () => _refreshShelfs(context),
                 child: Column(
                   children: [
-                    const ShelfList(),
+                    ShelfList(shopId: id),
                     AddShelfButton(shopId: id),
                   ],
                 ),
