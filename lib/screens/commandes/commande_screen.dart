@@ -65,12 +65,12 @@ class CommandeScreenList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Boissons",
+                    "Liste Boutique 1",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    "Eau, vins, jus, ...",
+                    "...",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -143,12 +143,12 @@ class CommandeScreenList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Accessoires",
+                    "Listes Boutique 2",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    "Bijoux, colliers, chargeurs, ...",
+                    "...",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

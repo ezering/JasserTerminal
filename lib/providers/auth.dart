@@ -138,7 +138,7 @@ class Auth with ChangeNotifier {
     // await prefs.clear();
   }
 
-  // auto logout
+  // auto logout :: Not used
   Future<void> autoLogout() async {
     if (_token.isNotEmpty) {
       if (JwtDecoder.isExpired(_token)) {
