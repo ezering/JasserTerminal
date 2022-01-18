@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/screens/product/add_product_screen.dart';
+import 'package:jasser_terminal/widgets/products/add_product_form.dart';
+import 'package:jasser_terminal/widgets/products/modal_sheet_add_product.dart';
 import 'commandes_screen.dart';
 import '/screens/dashboard_screen.dart';
 import 'infos_screen.dart';
@@ -40,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // );
 
           Navigator.of(context).pushNamed(AddProductScreen.routeName);
+          // const AddProductForm();
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
