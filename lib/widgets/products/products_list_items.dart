@@ -24,7 +24,32 @@ class ShelfProductListDismissable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final commandeProvider = Provider.of<Commandes>(context, listen: false);
+    final commandeProvider = Provider.of<Commandes>(context, listen: true);
+    Commande _commandeToAdd;
+    Commande? _commandeToRemove;
+
+    bool _isProductExistInCommande(String id) {
+      return commandeProvider.commandes
+          .any((commande) => commande.product.id == id);
+    }
+
+    bool _isCommandeExist(Commande _commandeToAdd) {
+      for (var commande in commandeProvider.commandes) {
+        if (commande.product.id == _commandeToAdd.product.id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    Commande? _findCommande(String id) {
+      for (var commande in commandeProvider.commandes) {
+        if (commande.product.id == id) {
+          return commande;
+        }
+      }
+      return null;
+    }
 
     return Dismissible(
       key: Key(index.toString()),
@@ -97,47 +122,103 @@ class ShelfProductListDismissable extends StatelessWidget {
                 Icons.print_outlined,
               ),
               const SizedBox(width: 10),
-              IconButton(
-                onPressed: () {
-                  Commande _commandeToAdd = Commande(
-                    id: DateTime.now().toString(),
-                    shopId: shopId,
-                    shelfId: shelfId,
-                    product: productsData.products[index],
-                  );
-                  if (!commandeProvider.commandes.contains(_commandeToAdd)) {
-                    commandeProvider.addCommande(_commandeToAdd);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 1),
-                        backgroundColor: Colors.green,
-                        content: Text(
-                          'Produit ajouté à la liste des commandes',
-                        ),
-                      ),
-                    );
+              _isProductExistInCommande(productsData.products[index].id)
+                  ? IconButton(
+                      onPressed: () {
+                        _commandeToRemove =
+                            _findCommande(productsData.products[index].id);
 
-                    // commandeProvider.commandes.product.name
-                    for (var i = 0;
-                        i < commandeProvider.commandes.length;
-                        i++) {
-                      print(commandeProvider.commandes[i].product.name);
-                    }
-                  }
-
-                  if (commandeProvider.commandes.contains(_commandeToAdd)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 1),
-                        backgroundColor: Colors.red,
-                        content:
-                            Text('Produit déjà dans la liste des commandes'),
+                        if (_isProductExistInCommande(
+                            productsData.products[index].id)) {
+                          commandeProvider
+                              .deleteCommande(_commandeToRemove)
+                              .then(
+                            (value) {
+                              ScaffoldMessenger.of(context)
+                                  .removeCurrentSnackBar();
+                              return ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  backgroundColor: Colors.green,
+                                  content: Text(
+                                    'Produit supprimer de la liste des commandes',
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              duration: Duration(seconds: 1),
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                  'Produit n\'est pas dans la liste des commandes'),
+                            ),
+                          );
+                        }
+                        // commandeProvider.commandes.product.name
+                        for (var i = 0;
+                            i < commandeProvider.commandes.length;
+                            i++) {
+                          print(commandeProvider.commandes[i].product.name);
+                        }
+                        print("##############################################");
+                        print(
+                            "Commande Length :: ${commandeProvider.commandes.length}");
+                      },
+                      icon: const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
                       ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.post_add_rounded),
-              ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        _commandeToAdd = Commande(
+                          id: DateTime.now().toString(),
+                          shopId: shopId,
+                          shelfId: shelfId,
+                          product: productsData.products[index],
+                        );
+
+                        if (!_isCommandeExist(_commandeToAdd)) {
+                          commandeProvider.addCommande(_commandeToAdd).then(
+                            (value) {
+                              ScaffoldMessenger.of(context)
+                                  .removeCurrentSnackBar();
+                              return ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  backgroundColor: Colors.green,
+                                  content: Text(
+                                    'Produit ajouté à la liste des commandes',
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              duration: Duration(seconds: 1),
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                  'Produit déjà dans la liste des commandes'),
+                            ),
+                          );
+                        }
+                        // commandeProvider.commandes.product.name
+                        for (var i = 0;
+                            i < commandeProvider.commandes.length;
+                            i++) {
+                          print(commandeProvider.commandes[i].product.name);
+                        }
+                        print("##############################################");
+                        print(
+                            "Commande Length :: ${commandeProvider.commandes.length}");
+                      },
+                      icon: const Icon(Icons.post_add_rounded),
+                    ),
               // Icon(Icons.post_add_rounded),
             ],
           ),

@@ -11,7 +11,7 @@ class CommandeProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Produits Dans la catégorie'),
+        title: const Text('Produits Dans la commande'),
       ),
       body: const CommandeProducts(),
       drawer: const CustomDrawer(),

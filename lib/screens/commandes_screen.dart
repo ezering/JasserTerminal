@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'commandes/commande_screen.dart';
 
 class CommandeScreen extends StatelessWidget {
-  static const routeName = '/category-screen';
+  static const routeName = '/commande-screen';
 
   const CommandeScreen({Key? key}) : super(key: key);
 
@@ -11,9 +11,14 @@ class CommandeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Catégories'),
+        title: const Text('Commandes'),
       ),
-      body: const CommandeScreenList(),
+      body: SingleChildScrollView(
+          child: Column(
+        children: const [
+          CommandeScreenList(),
+        ],
+      )),
     );
   }
 }

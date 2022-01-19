@@ -78,7 +78,6 @@ class Shops extends ChangeNotifier {
     }
   }
 
- 
   // Add Shop
   Future<void> addShop(String name, String address) async {
     try {

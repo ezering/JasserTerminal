@@ -11,4 +11,21 @@ class Commande {
       required this.shopId,
       required this.shelfId,
       required this.product});
+
+      //Method for Commande toJson()
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'shopId': shopId,
+        'shelfId': shelfId,
+        'product': product.toJson(),
+      };
+
+      //Method for Commande fromJson()
+  factory Commande.fromJson(Map<String, dynamic> json) => Commande(
+        id: json['id'],
+        shopId: json['shopId'],
+        shelfId: json['shelfId'],
+        product: Product.fromJson(json['product']),
+      );
+
 }

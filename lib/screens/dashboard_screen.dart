@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/shops.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
 import 'package:jasser_terminal/widgets/shop/add_shop_buton.dart';
@@ -15,6 +16,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<Commandes>(context, listen: false).fetchAndSetCommandes();
+    // Provider.of<Commandes>(context, listen: false).deleteAllCommandes();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Acceuil'),

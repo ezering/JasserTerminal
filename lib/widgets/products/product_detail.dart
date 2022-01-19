@@ -18,7 +18,32 @@ class ProductDetails extends StatelessWidget {
   final String shopId;
   @override
   Widget build(BuildContext context) {
-    final commandeProvider = Provider.of<Commandes>(context, listen: false);
+    final commandeProvider = Provider.of<Commandes>(context, listen: true);
+    Commande _commandeToAdd;
+    Commande? _commandeToRemove;
+
+    bool _isCommandeExist(Commande _commandeToAdd) {
+      for (var commande in commandeProvider.commandes) {
+        if (commande.product.id == _commandeToAdd.product.id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    bool _isProductExistInCommande(String id) {
+      return commandeProvider.commandes
+          .any((commande) => commande.product.id == id);
+    }
+
+    Commande? _findCommande(String id) {
+      for (var commande in commandeProvider.commandes) {
+        if (commande.product.id == id) {
+          return commande;
+        }
+      }
+      return null;
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -106,55 +131,133 @@ class ProductDetails extends StatelessWidget {
                                   icon: const Icon(Icons.delete_outlined),
                                   color: Theme.of(context).errorColor,
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    Commande _commandeToAdd = Commande(
-                                      id: DateTime.now().toString(),
-                                      shopId: shopId,
-                                      shelfId: shelfId,
-                                      product: singleProductData,
-                                    );
-                                    if (!commandeProvider.commandes
-                                        .contains(_commandeToAdd)) {
-                                      commandeProvider
-                                          .addCommande(_commandeToAdd);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          duration: Duration(seconds: 1),
-                                          backgroundColor: Colors.green,
-                                          content: Text(
-                                            'Produit ajouté à la liste des commandes',
-                                          ),
-                                        ),
-                                      );
 
-                                      // commandeProvider.commandes.product.name
-                                      for (var i = 0;
-                                          i < commandeProvider.commandes.length;
-                                          i++) {
-                                        print(commandeProvider
-                                            .commandes[i].product.name);
-                                      }
-                                    }
+                                ///  Add to product to commande List
+                                _isProductExistInCommande(singleProductData.id)
+                                    ? IconButton(
+                                        onPressed: () {
+                                          _commandeToRemove = _findCommande(
+                                              singleProductData.id);
 
-                                    if (commandeProvider.commandes
-                                        .contains(_commandeToAdd)) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          duration: Duration(seconds: 1),
-                                          backgroundColor: Colors.red,
-                                          content: Text(
-                                              'Produit déjà dans la liste des commandes'),
+                                          if (_isProductExistInCommande(
+                                              singleProductData.id)) {
+                                            commandeProvider
+                                                .deleteCommande(
+                                                    _commandeToRemove)
+                                                .then(
+                                              (value) {
+                                                ScaffoldMessenger.of(context)
+                                                    .removeCurrentSnackBar();
+                                                return ScaffoldMessenger.of(
+                                                        context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    duration:
+                                                        Duration(seconds: 1),
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    content: Text(
+                                                      'Produit supprimer de la liste des commandes',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                duration: Duration(seconds: 1),
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                    'Produit n\'est pas dans la liste des commandes'),
+                                              ),
+                                            );
+                                          }
+                                          // commandeProvider.commandes.product.name
+                                          for (var i = 0;
+                                              i <
+                                                  commandeProvider
+                                                      .commandes.length;
+                                              i++) {
+                                            print(commandeProvider
+                                                .commandes[i].product.name);
+                                          }
+                                          print(
+                                              "##############################################");
+                                          print(
+                                              "Commande Length :: ${commandeProvider.commandes.length}");
+                                        },
+                                        icon: const Icon(
+                                          Icons.check_circle_outline,
+                                          color: Colors.green,
                                         ),
-                                      );
-                                    }
-                                  },
-                                  icon: const Icon(Icons.post_add_rounded),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          _commandeToAdd = Commande(
+                                            id: DateTime.now().toString(),
+                                            shopId: shopId,
+                                            shelfId: shelfId,
+                                            product: singleProductData,
+                                          );
+                                          if (!_isCommandeExist(
+                                              _commandeToAdd)) {
+                                            commandeProvider
+                                                .addCommande(_commandeToAdd)
+                                                .then(
+                                              (value) {
+                                                ScaffoldMessenger.of(context)
+                                                    .removeCurrentSnackBar();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    duration:
+                                                        Duration(seconds: 1),
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    content: Text(
+                                                      'Produit ajouté à la liste des commandes',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (commandeProvider.commandes
+                                              .contains(_commandeToAdd)) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                duration: Duration(seconds: 1),
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                    'Produit déjà dans la liste des commandes'),
+                                              ),
+                                            );
+                                          }
+
+                                          // commandeProvider.commandes.product.name
+                                          for (var i = 0;
+                                              i <
+                                                  commandeProvider
+                                                      .commandes.length;
+                                              i++) {
+                                            print(commandeProvider
+                                                .commandes[i].product.name);
+                                          }
+                                          print(
+                                              "##############################################");
+                                          print(
+                                              "Commande Length :: ${commandeProvider.commandes.length}");
+                                        },
+                                        icon:
+                                            const Icon(Icons.post_add_rounded),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: const Icon(Icons.print_outlined),
