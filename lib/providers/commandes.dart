@@ -48,6 +48,13 @@ class Commandes extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteCommandes(List<Commande> commandes) async {
+    _commandes.removeWhere((commande) => commandes.contains(commande));
+    notifyListeners();
+    await AppSharedPreferences.deleteCommandeListPref();
+    await AppSharedPreferences.setCommandeList(_commandes);
+  }
+
   Future<void> deleteAllCommandes() async {
     _commandes.clear();
     notifyListeners();

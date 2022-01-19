@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
 import 'package:jasser_terminal/models/shop.dart';
+import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/screens/commandes/commande_products_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
+import 'package:jasser_terminal/widgets/swipe/print_swipe.dart';
+import 'package:provider/provider.dart';
 
 class CommandeShopItemDismissable extends StatelessWidget {
   const CommandeShopItemDismissable({
@@ -19,7 +22,7 @@ class CommandeShopItemDismissable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(shopCommande.id),
-      background: const EditSwipe(),
+      background: const PrintSwipe(),
       secondaryBackground: const DeleteSwipe(),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -45,8 +48,9 @@ class CommandeShopItemDismissable extends StatelessWidget {
                         style: TextStyle(color: Colors.red),
                       ),
                       onPressed: () {
-                        // TODO: Delete all shop Commandes
-                        Navigator.of(context).pop(true);
+                        Provider.of<Commandes>(context, listen: false)
+                            .deleteCommandes(commandes)
+                            .then((value) => Navigator.of(context).pop(true));
                       },
                     ),
                   ],
@@ -55,12 +59,13 @@ class CommandeShopItemDismissable extends StatelessWidget {
           return res;
         } else {
           // Allez vers l'impression px etr;
-
+          //
         }
       },
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(CommandeProductList.routeName);
+          Navigator.of(context)
+              .pushNamed(CommandeProductList.routeName, arguments: commandes);
         },
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),

@@ -14,11 +14,10 @@ class CommandeShopGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final commandesData = Provider.of<Commandes>(context);
-    final shopsData = Provider.of<Shops>(context);
+    final commandesData = Provider.of<Commandes>(context, listen: true);
+    final shopsData = Provider.of<Shops>(context, listen: true);
     List<String> shopIds = [];
     List<Shop> shops = [];
-    // List<Commande> commandes = [];
 
     for (var i = 0; i < commandesData.commandes.length; i++) {
       if (!shopIds.contains(commandesData.commandes[i].shopId)) {
@@ -30,7 +29,6 @@ class CommandeShopGridView extends StatelessWidget {
       shops.add(shopsData.findById(shopIds[i]));
     }
 
-    // Method to get commandes for each shop
     List<Commande> getCommandesForShop(Shop shop) {
       List<Commande> commandesForShop = [];
       for (var i = 0; i < commandesData.commandes.length; i++) {
@@ -40,43 +38,6 @@ class CommandeShopGridView extends StatelessWidget {
       }
       return commandesForShop;
     }
-
-    // List<Commande> getCommandesForShop(String shopId) {
-    //   List<Commande> commandes = [];
-    //   for (var i = 0; i < commandesData.commandes.length; i++) {
-    //     if (commandesData.commandes[i].shopId == shopId) {
-    //       commandes.add(commandesData.commandes[i]);
-    //     }
-    //   }
-    //   return commandes;
-    // }
-
-    // void getCommandesForShop(Shop shop) {
-    //   for (var i = 0; i < commandesData.commandes.length; i++) {
-    //     if (commandesData.commandes[i].shopId == shop.id) {
-    //       commandes.add(commandesData.commandes[i]);
-    //     }
-    //   }
-    // }
-
-    // for (var i = 0; i < shops.length; i++) {
-    //   for (var j = 0; j < commandesData.commandes.length; j++) {
-    //     if (commandesData.commandes[j].shopId == shops[i].id) {
-    //       commandes.add(commandesData.commandes[j]);
-    //     }
-    //   }
-    // }
-
-    // for (var i = 0; i < commandesData.commandes.length; i++) {
-    //   if (commandesData.commandes[i].shopId == shops[0].id) {
-    //     commandes.add(commandesData.commandes[i]);
-    //   }
-    // }
-
-    // print("shopIds: $shopIds");
-    // print("shops: $shops");
-    // print("commandes: $commandes");
-    // print("Commande List Length: ${commandes.length}");
 
     return commandesData.commandes.isNotEmpty
         ? GridView.count(
@@ -98,7 +59,7 @@ class CommandeShopGridView extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                'Aucune Liste trouvée dans les boutiques',
+                'Aucune Liste de commandes trouvée dans les boutiques',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),

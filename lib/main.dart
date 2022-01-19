@@ -19,7 +19,6 @@ import 'package:jasser_terminal/screens/shop/edit_shop_screen.dart';
 import 'package:jasser_terminal/screens/shop/shop_screen.dart';
 import 'package:jasser_terminal/screens/splash_screen.dart';
 import 'package:jasser_terminal/utils/app_shared_preferences.dart';
-import 'package:jasser_terminal/widgets/commandes/commande_product.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 import 'screens/auth/authentication_screen.dart';
@@ -120,7 +119,7 @@ class MyApp extends StatelessWidget {
             EditProductScreen.routeName: (context) => const EditProductScreen(),
             CommandeScreenList.routeName: (context) =>
                 const CommandeScreenList(),
-            CommandeProducts.routeName: (context) => const CommandeProducts(),
+            // CommandeProducts.routeName: (context) =>  CommandeProducts( ),
             CommandeProductList.routeName: (context) =>
                 const CommandeProductList(),
             AddShopScreen.routeName: (context) => const AddShopScreen(),
