@@ -4,7 +4,6 @@ import 'package:jasser_terminal/models/shop.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/screens/commandes/commande_products_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
-import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 import 'package:jasser_terminal/widgets/swipe/print_swipe.dart';
 import 'package:provider/provider.dart';
 

@@ -174,4 +174,36 @@ class Shelfs extends ChangeNotifier {
       rethrow;
     }
   }
+
+  // find shelf by id
+  Future<Shelf> findShelfById(String id) async {
+    Shelf _shelf;
+    try {
+      final response = await http.get(
+        Uri.parse('${ApiClass.baseUrl}/shelfs/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${await ApiClass.getToken()}',
+        },
+      );
+      final responseData = json.decode(response.body);
+      print("############ Response data #############");
+      print(responseData);
+      print("############ Response data #############");
+      _shelf = Shelf(
+        id: responseData['id'],
+        name: responseData['name'],
+        description: responseData['description'],
+        shop: Shop(
+          id: "",
+          name: "",
+          address: "",
+          shelfs: [],
+        ),
+      );
+      return _shelf;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

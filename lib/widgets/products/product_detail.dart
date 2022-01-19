@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
 import 'package:jasser_terminal/models/product.dart';
@@ -5,6 +7,7 @@ import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({
@@ -45,6 +48,14 @@ class ProductDetails extends StatelessWidget {
       return null;
     }
 
+    String _qrCodeData(String id, String shelfId, String shopId) {
+      return json.encode({
+        'id': id,
+        'shelfId': shelfId,
+        'shopId': shopId,
+      });
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -68,15 +79,18 @@ class ProductDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 15),
-                    const CircleAvatar(
-                      child: Text(
-                        '€',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: QrImage(
+                          data: _qrCodeData(
+                              singleProductData.id, shelfId, shopId),
+                          version: QrVersions.auto,
+                          size: 200,
                         ),
                       ),
-                      radius: 75,
                     ),
                     const SizedBox(
                       height: 10,
@@ -84,7 +98,8 @@ class ProductDetails extends StatelessWidget {
                     Text(
                       singleProductData.name,
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),

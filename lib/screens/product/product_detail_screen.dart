@@ -10,12 +10,17 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final productId = arguments['productId'] as String;
     final shelfId = arguments['shelfId'] as String;
     final shopId = arguments['shopId'] as String;
-    
+
+    print("############## Details Screen ##############");
+    print(productId);
+    print(shelfId);
+    print(shopId);
+    print("##############");
 
     final loadedProduct =
         Provider.of<Products>(context, listen: false).findById(productId);
@@ -23,7 +28,8 @@ class ProductDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Détails du produit'),
       ),
-      body: ProductDetails(singleProductData: loadedProduct, shelfId: shelfId, shopId: shopId),
+      body: ProductDetails(
+          singleProductData: loadedProduct, shelfId: shelfId, shopId: shopId),
       drawer: const CustomDrawer(),
     );
   }
