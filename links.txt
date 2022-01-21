@@ -1,0 +1,6 @@
+
+Video Demo Presentation: https://www.youtube.com/watch?v=U5lauUKbvzQ
+
+Lien code:
+    *Server(NodeJS): https://github.com/ezering/jasser-terminal-server (hébérgé gratuitement sur Heroku)
+    *Client(Flutter App): https://github.com/ezering/JasserTerminal
