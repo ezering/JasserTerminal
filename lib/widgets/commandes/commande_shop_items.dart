@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
+import 'package:jasser_terminal/models/printer.dart';
 import 'package:jasser_terminal/models/shop.dart';
+import 'package:jasser_terminal/print.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/screens/commandes/commande_products_screen.dart';
 import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
@@ -57,8 +59,9 @@ class CommandeShopItemDismissable extends StatelessWidget {
               });
           return res;
         } else {
-          // Allez vers l'impression px etr;
-          //
+          Future.delayed(Duration.zero, () {
+            Printer.printListCommandes(context, commandes);
+          });
         }
       },
       child: InkWell(

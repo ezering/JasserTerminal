@@ -26,7 +26,7 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () => scanQR());
+    // Future.delayed(Duration.zero, () => scanQR());
   }
 
   Future<void> scanQR() async {

@@ -16,12 +16,6 @@ class ProductDetailsScreen extends StatelessWidget {
     final shelfId = arguments['shelfId'] as String;
     final shopId = arguments['shopId'] as String;
 
-    print("############## Details Screen ##############");
-    print(productId);
-    print(shelfId);
-    print(shopId);
-    print("##############");
-
     final loadedProduct =
         Provider.of<Products>(context, listen: false).findById(productId);
     return Scaffold(

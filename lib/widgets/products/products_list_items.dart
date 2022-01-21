@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
+import 'package:jasser_terminal/models/printer.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
 import 'package:jasser_terminal/screens/product/edit_product_screen.dart';
@@ -49,6 +52,14 @@ class ShelfProductListDismissable extends StatelessWidget {
         }
       }
       return null;
+    }
+
+    String _qrCodeData(String id, String shelfId, String shopId) {
+      return json.encode({
+        'id': id,
+        'shelfId': shelfId,
+        'shopId': shopId,
+      });
     }
 
     return Dismissible(
@@ -118,8 +129,19 @@ class ShelfProductListDismissable extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Icon(
-                Icons.print_outlined,
+              // Imprimante widget
+              IconButton(
+                onPressed: () {
+                  Printer.printProduct(
+                      context,
+                      productsData.products[index],
+                      _qrCodeData(
+                        productsData.products[index].id,
+                        shelfId,
+                        shopId,
+                      ));
+                },
+                icon: const Icon(Icons.print_rounded),
               ),
               const SizedBox(width: 10),
               _isProductExistInCommande(productsData.products[index].id)

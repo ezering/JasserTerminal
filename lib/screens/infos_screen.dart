@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/providers/auth.dart';
+import 'package:jasser_terminal/screens/printer/printer_screen.dart';
 import 'package:provider/provider.dart';
 
 class InfoScreen extends StatelessWidget {
@@ -85,222 +86,45 @@ class InfoScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Card(
-                      //   margin: const EdgeInsets.symmetric(
-                      //       horizontal: 5, vertical: 5),
-                      //   clipBehavior: Clip.antiAlias,
-                      //   color: Colors.white,
-                      //   elevation: 5,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.symmetric(
-                      //         horizontal: 8, vertical: 22),
-                      //     child: Row(
-                      //       children: [
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Boutique",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "#1",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Etagères",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "8",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Produits",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "152",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Card(
-                      //   margin: const EdgeInsets.symmetric(
-                      //       horizontal: 5, vertical: 5),
-                      //   clipBehavior: Clip.antiAlias,
-                      //   color: Colors.white,
-                      //   elevation: 5,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.symmetric(
-                      //         horizontal: 8, vertical: 22),
-                      //     child: Row(
-                      //       children: [
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Boutique",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "#2",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Etagères",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "14",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Produits",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "105",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Card(
-                      //   margin: const EdgeInsets.symmetric(
-                      //       horizontal: 5, vertical: 5),
-                      //   clipBehavior: Clip.antiAlias,
-                      //   color: Colors.white,
-                      //   elevation: 5,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.symmetric(
-                      //         horizontal: 8, vertical: 22),
-                      //     child: Row(
-                      //       children: [
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Boutique",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "#3",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Etagères",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "36",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         Expanded(
-                      //           child: Column(
-                      //             children: <Widget>[
-                      //               Text(
-                      //                 "Produits",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.headline6,
-                      //               ),
-                      //               const SizedBox(
-                      //                 height: 5,
-                      //               ),
-                      //               Text(
-                      //                 "204",
-                      //                 style:
-                      //                     Theme.of(context).textTheme.bodyText1,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shadowColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ThermalPrinterScreen()),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              "Paramètres imprimante",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.print_rounded,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

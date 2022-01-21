@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
+import 'package:jasser_terminal/models/printer.dart';
 import 'package:jasser_terminal/models/product.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/products.dart';
@@ -274,7 +275,13 @@ class ProductDetails extends StatelessWidget {
                                             .secondary,
                                       ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Printer.printProduct(
+                                        context,
+                                        singleProductData,
+                                        _qrCodeData(singleProductData.id,
+                                            shelfId, shopId));
+                                  },
                                   icon: const Icon(Icons.print_outlined),
                                   color:
                                       Theme.of(context).colorScheme.secondary,
