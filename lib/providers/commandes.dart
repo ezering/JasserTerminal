@@ -13,10 +13,6 @@ class Commandes extends ChangeNotifier {
   Future<void> fetchAndSetCommandes() async {
     List<Commande> savedCommandes = [];
     savedCommandes = await AppSharedPreferences.getCommandeList();
-    print("##############");
-    print("Saved Commandes = $savedCommandes");
-    print("Saved Commandes Length= ${savedCommandes.length}");
-    print("##############");
     _commandes = savedCommandes;
     notifyListeners();
   }

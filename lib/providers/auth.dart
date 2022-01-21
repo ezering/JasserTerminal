@@ -111,12 +111,12 @@ class Auth with ChangeNotifier {
 
   // auto authentification
   Future<bool> autoAuthenticate() async {
-    print('auto authentification');
+    // print('auto authentification');
     final extractedUserData = await getUserData();
     final token = extractedUserData['token'] as String;
     final email = extractedUserData['email'] as String;
-    print(token);
-    print(email);
+    // print(token);
+    // print(email);
 
     if (token.isNotEmpty && !JwtDecoder.isExpired(token)) {
       _token = token;

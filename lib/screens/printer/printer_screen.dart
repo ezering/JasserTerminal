@@ -31,7 +31,7 @@ class _ThermalPrinterScreenState extends State<ThermalPrinterScreen> {
           Provider.of<Printers>(context, listen: false).getDevices();
         });
       } catch (e) {
-        print(e);
+        Display.dialogError(context, e.toString());
       }
     }
     _isInit = false;

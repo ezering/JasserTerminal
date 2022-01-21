@@ -187,9 +187,7 @@ class Shelfs extends ChangeNotifier {
         },
       );
       final responseData = json.decode(response.body);
-      print("############ Response data #############");
-      print(responseData);
-      print("############ Response data #############");
+
       _shelf = Shelf(
         id: responseData['id'],
         name: responseData['name'],

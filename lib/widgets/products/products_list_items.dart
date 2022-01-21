@@ -179,15 +179,6 @@ class ShelfProductListDismissable extends StatelessWidget {
                             ),
                           );
                         }
-                        // commandeProvider.commandes.product.name
-                        for (var i = 0;
-                            i < commandeProvider.commandes.length;
-                            i++) {
-                          print(commandeProvider.commandes[i].product.name);
-                        }
-                        print("##############################################");
-                        print(
-                            "Commande Length :: ${commandeProvider.commandes.length}");
                       },
                       icon: const Icon(
                         Icons.check_circle_outline,
@@ -229,15 +220,6 @@ class ShelfProductListDismissable extends StatelessWidget {
                             ),
                           );
                         }
-                        // commandeProvider.commandes.product.name
-                        for (var i = 0;
-                            i < commandeProvider.commandes.length;
-                            i++) {
-                          print(commandeProvider.commandes[i].product.name);
-                        }
-                        print("##############################################");
-                        print(
-                            "Commande Length :: ${commandeProvider.commandes.length}");
                       },
                       icon: const Icon(Icons.post_add_rounded),
                     ),

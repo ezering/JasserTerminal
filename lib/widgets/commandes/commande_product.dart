@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jasser_terminal/models/commande.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/screens/product/product_detail_screen.dart';
-import 'package:jasser_terminal/widgets/swipe/delete_swipe.dart';
-import 'package:jasser_terminal/widgets/swipe/edit_swipe.dart';
 import 'package:provider/provider.dart';
 
 class CommandeProducts extends StatefulWidget {

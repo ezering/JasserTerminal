@@ -60,13 +60,7 @@ class Products extends ChangeNotifier {
   // add product to shelf
   Future<void> addProductToShelf(String shelfId, String name, double price,
       String quantity, String description) async {
-    print("#############");
-    print(shelfId);
-    print(name);
-    print(price);
-    print(quantity);
-    print(description);
-    print("#############");
+
     try {
       final response = await http.post(
         Uri.parse('${ApiClass.baseUrl}/products/create'),
