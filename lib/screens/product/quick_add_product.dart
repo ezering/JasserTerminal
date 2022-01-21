@@ -7,13 +7,14 @@ class QuickAddProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shelfId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: addProductAppBar(context),
       body: SingleChildScrollView(
         child: Column(
-          children: const <Widget>[
-            WelcomeTextAddProduct(),
-            AddProductFormWithShelfId(),
+          children: <Widget>[
+            const WelcomeTextAddProduct(),
+            AddProductFormWithShelfId(shelfId: shelfId),
           ],
         ),
       ),

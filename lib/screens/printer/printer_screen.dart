@@ -138,14 +138,6 @@ class _ThermalPrinterScreenState extends State<ThermalPrinterScreen> {
                           backgroundColor: Colors.green,
                         ),
                         onPressed: () => Printer.printTest(context),
-                        // () async {
-                        //   if ((await printerConnexionState())) {
-                        //     printTestMethod();
-                        //   } else {
-                        //     Display.dialogError(
-                        //         context, "Connexion à l'imprimante à échoué");
-                        //   }
-                        // },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +159,6 @@ class _ThermalPrinterScreenState extends State<ThermalPrinterScreen> {
   }
 
   Future<void> _refreshMethod(BuildContext context) async {
-    // getDevices();
     setState(() {
       Provider.of<Printers>(context, listen: false).getDevices();
       Provider.of<Printers>(context, listen: false)

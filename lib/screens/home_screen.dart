@@ -40,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
           // );
 
           Navigator.of(context).pushNamed(AddProductScreen.routeName);
-          // const AddProductForm();
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -63,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     _buildBottomBarButton(2, 'Scan', Icons.qr_code_2_outlined),
                     _buildBottomBarButton(
-                        3, 'Infos', Icons.info_outline_rounded),
+                        3, 'Compte', Icons.account_circle_outlined),
                   ],
                 ),
               ],

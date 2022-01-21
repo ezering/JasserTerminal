@@ -4,9 +4,13 @@ import 'package:jasser_terminal/providers/products.dart';
 import 'package:provider/provider.dart';
 
 class AddProductFormWithShelfId extends StatefulWidget {
+  static const routeName = '/add-product-form-with-shelf-id';
   const AddProductFormWithShelfId({
     Key? key,
+    required this.shelfId,
   }) : super(key: key);
+
+  final String shelfId;
 
   @override
   State<AddProductFormWithShelfId> createState() =>
@@ -24,8 +28,6 @@ class _AddProductFormWithShelfIdState extends State<AddProductFormWithShelfId> {
   var _isInit = true;
   var _isLoading = false;
 
-  var _shelfId;
-
   @override
   void initState() {
     super.initState();
@@ -33,11 +35,11 @@ class _AddProductFormWithShelfIdState extends State<AddProductFormWithShelfId> {
 
   @override
   void didChangeDependencies() {
-    if (_isInit) {
-      final shelfId = ModalRoute.of(context)!.settings.arguments as String;
-      _shelfId = shelfId;
-    }
-    _isInit = false;
+    // if (_isInit) {
+    //   final shelfId = ModalRoute.of(context)!.settings.arguments as String;
+    //   _shelfId = shelfId;
+    // }
+    // _isInit = false;
     super.didChangeDependencies();
   }
 
@@ -52,7 +54,7 @@ class _AddProductFormWithShelfIdState extends State<AddProductFormWithShelfId> {
     // Ajout produit
     try {
       await Provider.of<Products>(context, listen: false).addProductToShelf(
-        _shelfId,
+        widget.shelfId,
         _formData['name'] as String,
         double.parse(_formData['price']),
         _formData['quantity'] as String,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jasser_terminal/print.dart';
 import 'package:jasser_terminal/providers/commandes.dart';
 import 'package:jasser_terminal/providers/printers.dart';
 import 'package:jasser_terminal/providers/products.dart';
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Products()),
         ChangeNotifierProvider(create: (context) => Commandes()),
         ChangeNotifierProvider(create: (context) => Printers()),
-
       ],
       child: Consumer<Auth>(
         builder: (context, auth, child) => MaterialApp(
@@ -130,7 +128,6 @@ class MyApp extends StatelessWidget {
             EditShopScreen.routeName: (context) => const EditShopScreen(),
             AddShelfScreen.routeName: (context) => const AddShelfScreen(),
             EditShelfScreen.routeName: (context) => const EditShelfScreen(),
-            // ThermalPrintScreen.routeName: (context) => ThermalPrintScreen(),
           },
           debugShowCheckedModeBanner: false,
         ),
